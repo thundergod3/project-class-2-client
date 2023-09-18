@@ -7,7 +7,7 @@ const Homepage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    history.push(Routes.faculty);
+    history.push(Routes.faculties);
   }, [history]);
 
   return <></>;
