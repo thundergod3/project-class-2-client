@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  -webkit-touch-callout: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.Toastify__toast-container {
+  width: max-content;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+
+  .Toastify__toast {
+    width: max-content;
+
+    .Toastify__toast-body {
+      div {
+        white-space: pre-line;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 30em) {
+  .Toastify__toast-container {
+    width: 100%;
+
+    .Toastify__toast {
+      .Toastify__toast-body {
+        div {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
+
+.chakra-icon {
+  path {
+    stroke: currentColor;
+  }
+}
+
+.chakra-modal__close-btn {
+  box-shadow: none !important;
+}
