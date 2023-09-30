@@ -1,6 +1,6 @@
 import { Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { navLinks } from "./constants";
 
@@ -8,6 +8,7 @@ import { NavLinkItem } from "./sidebar.styles";
 
 const Sidebar = () => {
   const history = useHistory();
+  const location = useLocation();
 
   const handleNavigateLink = (route) => {
     history.push(route);
@@ -15,7 +16,8 @@ const Sidebar = () => {
 
   return (
     <Stack
-      w="280px"
+      w="fit-content"
+      minW="280px"
       minHeight="calc(100vh - 116px)"
       spacing={0}
       borderRight="solid 1px rgba(0, 0, 0, 0.30)"
@@ -34,7 +36,8 @@ const Sidebar = () => {
           {nav?.items?.map((record) => (
             <NavLinkItem
               key={record?.title}
-              onClick={() => handleNavigateLink(record?.route)}>
+              onClick={() => handleNavigateLink(record?.route)}
+              isActive={location?.pathname === record?.route}>
               <Text>{record?.title}</Text>
             </NavLinkItem>
           ))}

@@ -98,7 +98,6 @@ const InputField = ({
             focusBorderColor={!showingFocusBorder && "transparent"}
             _disabled={isDisabled && disabledStyle}
             disabled={isDisabled}
-            background={isError ? "red.200" : "white"}
             onBlur={onBlur}
             onChange={onChange}
             {...rest}

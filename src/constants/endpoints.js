@@ -11,17 +11,29 @@ const Endpoints = {
   updateMajor: "/major/update/:id",
   deleteMajor: "/major/delete/:id",
 
-  // TEACHER
-  getTeacherList: "/teacher",
-  createTeacher: "/teacher/create",
-  updateTeacher: "/teacher/update/:id",
-  deleteTeacher: "/teacher/delete/:id",
+  // USER
+  getUserList: "/user",
+  createUser: "/user/create",
+  updateUser: "/user/update/:id",
+  deleteUser: "/user/delete/:id",
 
   // MODULE
   getModuleList: "/module",
   createModule: "/module/create",
   updateModule: "/module/update/:id",
   deleteModule: "/module/delete/:id",
+
+  // DOCUMENT
+  getDocumentList: "/document",
+  createDocument: "/document/create",
+  updateDocument: "/document/update/:id",
+  deleteDocument: "/document/delete/:id",
+
+  // TOPIC
+  getTopicList: "/topic",
+  createTopic: "/topic/create",
+  updateTopic: "/topic/update/:id",
+  deleteTopic: "/topic/delete/:id",
 };
 
 export default Endpoints;

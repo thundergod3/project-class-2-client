@@ -69,6 +69,26 @@ const ModifiedFormModal = ({
           break;
         }
 
+        case "textarea": {
+          component = (
+            <InputField
+              label={form?.properties?.label}
+              name={form?.name}
+              value={values?.[form?.name]}
+              touched={touched?.[form?.name]}
+              error={errors?.[form?.name]}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isRequired
+              w="full"
+              minWidthLabel={form?.properties?.minWidthLabel}
+              usingTextArea
+            />
+          );
+
+          break;
+        }
+
         case "dropdown": {
           component = (
             <SelectField

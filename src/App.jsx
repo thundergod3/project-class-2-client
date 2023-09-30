@@ -15,6 +15,9 @@ const FacultyPage = lazy(() => import("./pages/faculty"));
 const MajorPage = lazy(() => import("./pages/major"));
 const TeacherPage = lazy(() => import("./pages/teacher"));
 const ModulePage = lazy(() => import("./pages/module"));
+const StudentPage = lazy(() => import("./pages/student"));
+const DocumentPage = lazy(() => import("./pages/document"));
+const TopicPage = lazy(() => import("./pages/topic"));
 
 const App = () => {
   return (
@@ -56,6 +59,27 @@ const App = () => {
         component={ModulePage}
         layout={MainLayout}
         title="Quản lý các học phần KLTN"
+      />
+      <PublicRoute
+        exact
+        path={Routes.students}
+        component={StudentPage}
+        layout={MainLayout}
+        title="Quản lý Sinh viên"
+      />
+      <PublicRoute
+        exact
+        path={Routes.documents}
+        component={DocumentPage}
+        layout={MainLayout}
+        title="Quản lý Tài liệu tham khảo"
+      />
+      <PublicRoute
+        exact
+        path={Routes.topics}
+        component={TopicPage}
+        layout={MainLayout}
+        title="Quản lý đề tài hướng dẫn KLTN"
       />
     </React.Suspense>
   );

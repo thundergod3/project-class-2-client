@@ -20,6 +20,18 @@ export const navLinks = [
         route: Routes.modules,
         title: "Quản lý các học phần KLTN",
       },
+      {
+        route: Routes.students,
+        title: "Quản lý Sinh viên",
+      },
+      {
+        route: Routes.documents,
+        title: "Quản lý Tài liệu tham khảo",
+      },
+      {
+        route: Routes.topics,
+        title: "Quản lý đề tài hướng dẫn KLTN",
+      },
     ],
   },
   {
