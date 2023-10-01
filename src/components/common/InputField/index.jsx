@@ -100,6 +100,10 @@ const InputField = ({
             disabled={isDisabled}
             onBlur={onBlur}
             onChange={onChange}
+            borderColor="black"
+            _hover={{
+              borderColor: "black",
+            }}
             {...rest}
           />
         ) : (

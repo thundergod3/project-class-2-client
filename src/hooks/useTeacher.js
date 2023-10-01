@@ -38,7 +38,7 @@ const useTeacher = ({ initialGet } = {}) => {
       setIsModifiedLoading(true);
 
       try {
-        await usersService.createTeacher({
+        await usersService.createUser({
           ...body,
           role: "teacher",
         });
@@ -60,7 +60,7 @@ const useTeacher = ({ initialGet } = {}) => {
       try {
         delete body.id;
 
-        await usersService.updateTeacher(id, body);
+        await usersService.updateUser(id, body);
 
         openNotificationSuccess("Chỉnh sửa Giáo viên thành công");
         setIsModifiedLoading(false);
@@ -77,7 +77,7 @@ const useTeacher = ({ initialGet } = {}) => {
       setIsModifiedLoading(true);
 
       try {
-        await usersService.deleteTeacher(id);
+        await usersService.deleteUser(id);
 
         openNotificationSuccess("Xoá Giáo viên thành công");
       } catch (error) {
