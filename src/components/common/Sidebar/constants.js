@@ -1,6 +1,6 @@
 import { Routes } from "constants/routes";
 
-export const navLinks = [
+export const navLinksAdmin = [
   {
     title: "Quản lý Danh Mục",
     items: [
@@ -57,6 +57,54 @@ export const navLinks = [
       {
         route: "",
         title: "Báo cáo",
+      },
+    ],
+  },
+];
+
+export const navLinksTeacher = [
+  {
+    title: "Quản lý Danh Mục",
+    items: [
+      {
+        route: Routes.topics,
+        title: "Quản lý đề tài hướng dẫn KLTN",
+      },
+      {
+        route: Routes.proposalTopics,
+        title: "Đề xuất đề tài",
+      },
+      {
+        route: Routes.approveTopics,
+        title: "Quản lý kiểm duyệt đề tài",
+      },
+      {
+        route: Routes.outlines,
+        title: "Quản lý đề cương",
+      },
+    ],
+  },
+];
+
+export const navLinksStudent = [
+  {
+    title: "Quản lý Danh Mục",
+    items: [
+      {
+        route: Routes.topics,
+        title: "Quản lý đề tài hướng dẫn KLTN",
+      },
+      {
+        route: Routes.chooseTopics,
+        title: "Lựa chọn đề tài",
+      },
+      {
+        route: Routes.proposalTopics,
+        title: "Đề xuất đề tài",
+      },
+      {
+        route: Routes.outlines,
+        title: "Quản lý đề cương",
       },
     ],
   },

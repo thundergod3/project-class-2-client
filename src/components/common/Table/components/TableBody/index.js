@@ -8,7 +8,7 @@ const TableBody = ({ tableData, columnData, onEdit, onRemove }) => (
     {tableData.map((data, index) => (
       <React.Fragment key={index}>
         <Tr>
-          {columnData.map((column, indexCol) => {
+          {columnData.map((column) => {
             const customCell = column?.render;
 
             if (column?.columnId === "action") {
@@ -17,10 +17,14 @@ const TableBody = ({ tableData, columnData, onEdit, onRemove }) => (
                   key={column?.columnId}
                   borderColor="background.grey.600"
                   py={2}>
-                  <TableAction
-                    onEdit={() => onEdit(data)}
-                    onRemove={() => onRemove(data?.id)}
-                  />
+                  {customCell ? (
+                    customCell(data?.[column?.columnId], data, index)
+                  ) : (
+                    <TableAction
+                      onEdit={() => onEdit(data)}
+                      onRemove={() => onRemove(data?.id)}
+                    />
+                  )}
                 </Td>
               );
             }

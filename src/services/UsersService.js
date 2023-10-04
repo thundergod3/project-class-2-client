@@ -8,7 +8,7 @@ class UsersService {
   // [POST]
   createUser = (data) => HTTPMethod.post(Endpoints.createUser, data);
 
-  // [POST]
+  // [PUT]
   updateUser = (id, data) =>
     HTTPMethod.put(Endpoints.updateUser.replaceAll(":id", id), data);
 

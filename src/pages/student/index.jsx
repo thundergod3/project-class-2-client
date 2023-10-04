@@ -30,7 +30,7 @@ const StudentPage = () => {
     deleteTeacher,
     isModifiedStudentLoading,
   } = useStudent();
-  const { open, close, Dialog } = useModal({
+  const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
   });
@@ -76,12 +76,12 @@ const StudentPage = () => {
     {
       columnId: "major",
       label: "Tên ngành học",
-      render: (data) => data?.code,
+      render: (data) => data?.name,
     },
     {
       columnId: "faculty",
       label: "Khoa",
-      render: (data) => data?.code,
+      render: (data) => data?.name,
     },
     {
       columnId: "action",
@@ -89,6 +89,14 @@ const StudentPage = () => {
     },
   ];
   const formLayoutData = [
+    {
+      type: "input",
+      name: "username",
+      properties: {
+        label: "Tên đăng nhập",
+        minWidthLabel: "150px",
+      },
+    },
     {
       type: "input",
       name: "name",
@@ -140,6 +148,8 @@ const StudentPage = () => {
       }
 
       handleGetStudent();
+
+      return true;
     },
     [createStudent, handleGetStudent, updateStudent]
   );
@@ -190,7 +200,6 @@ const StudentPage = () => {
         />
       </Stack>
       <Dialog
-        onClose={close}
         onSave={handleModifiedStudent}
         formLayoutData={formLayoutData}
         formValidationSchema={modifiedStudentValidation}

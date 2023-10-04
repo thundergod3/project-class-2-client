@@ -9,7 +9,7 @@ class ModulesService {
   // [POST]
   createModule = (data) => HTTPMethod.post(Endpoints.createModule, data);
 
-  // [POST]
+  // [PUT]
   updateModule = (id, data) =>
     HTTPMethod.put(Endpoints.updateModule.replaceAll(":id", id), data);
 

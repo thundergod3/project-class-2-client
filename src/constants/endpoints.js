@@ -1,39 +1,56 @@
 const Endpoints = {
   // FACULTY
-  getFacultyList: "/faculty",
-  createFaculty: "/faculty/create",
-  updateFaculty: "/faculty/update/:id",
-  deleteFaculty: "/faculty/delete/:id",
+  getFacultyList: "/faculties",
+  createFaculty: "/faculties/create",
+  updateFaculty: "/faculties/update/:id",
+  deleteFaculty: "/faculties/delete/:id",
 
   // MAJOR
-  getMajorList: "/major",
-  createMajor: "/major/create",
-  updateMajor: "/major/update/:id",
-  deleteMajor: "/major/delete/:id",
+  getMajorList: "/majors",
+  createMajor: "/majors/create",
+  updateMajor: "/majors/update/:id",
+  deleteMajor: "/majors/delete/:id",
 
   // USER
-  getUserList: "/user",
-  createUser: "/user/create",
-  updateUser: "/user/update/:id",
-  deleteUser: "/user/delete/:id",
+  getUserList: "/users",
+  createUser: "/users/create",
+  updateUser: "/users/update/:id",
+  deleteUser: "/users/delete/:id",
 
   // MODULE
-  getModuleList: "/module",
-  createModule: "/module/create",
-  updateModule: "/module/update/:id",
-  deleteModule: "/module/delete/:id",
+  getModuleList: "/modules",
+  createModule: "/modules/create",
+  updateModule: "/modules/update/:id",
+  deleteModule: "/modules/delete/:id",
 
   // DOCUMENT
-  getDocumentList: "/document",
-  createDocument: "/document/create",
-  updateDocument: "/document/update/:id",
-  deleteDocument: "/document/delete/:id",
+  getDocumentList: "/documents",
+  createDocument: "/documents/create",
+  updateDocument: "/documents/update/:id",
+  deleteDocument: "/documents/delete/:id",
 
   // TOPIC
-  getTopicList: "/topic",
-  createTopic: "/topic/create",
-  updateTopic: "/topic/update/:id",
-  deleteTopic: "/topic/delete/:id",
+  getTopicList: "/topics",
+  createTopic: "/topics/create",
+  updateTopic: "/topics/update/:id",
+  deleteTopic: "/topics/delete/:id",
+  registerTopic: "/topics/register/:id",
+  unRegisterTopic: "/topics/un-register/:id",
+  proposalTopic: "/topics/proposal",
+  approveTopic: "/topics/approve/:id",
+
+  // OUTLINE
+  getOutlineList: "/outlines",
+  createOutline: "/outlines/create",
+  updateOutline: "/outlines/update/:id",
+  deleteOutline: "/outlines/delete/:id",
+
+  // AUTH
+  myProfile: "/auth/my-profile",
+  login: "/auth/login",
+  register: "/auth/register",
+  forgotPassword: "/auth/forgot-password",
+  resetPassword: "/auth/reset-password",
 };
 
 export default Endpoints;

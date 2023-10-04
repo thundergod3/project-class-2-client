@@ -1,18 +1,34 @@
 import { Stack, Text } from "@chakra-ui/react";
-import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useMemo } from "react";
+import { useLocation } from "react-router-dom";
 
-import { navLinks } from "./constants";
+import { navLinksAdmin, navLinksStudent, navLinksTeacher } from "./constants";
+import history from "utils/history";
+import useAuthenticated from "hooks/useAuthenticated";
 
 import { NavLinkItem } from "./sidebar.styles";
 
 const Sidebar = () => {
-  const history = useHistory();
   const location = useLocation();
+  const { isAdmin, isTeacher, isStudent } = useAuthenticated();
 
   const handleNavigateLink = (route) => {
     history.push(route);
   };
+
+  const navLinksBaseOnRole = useMemo(() => {
+    if (isAdmin) {
+      return navLinksAdmin;
+    }
+
+    if (isTeacher) {
+      return navLinksTeacher;
+    }
+
+    if (isStudent) {
+      return navLinksStudent;
+    }
+  }, [isAdmin, isStudent, isTeacher]);
 
   return (
     <Stack
@@ -22,7 +38,7 @@ const Sidebar = () => {
       spacing={0}
       borderRight="solid 1px rgba(0, 0, 0, 0.30)"
       background="background.grey.100">
-      {navLinks?.map((nav) => (
+      {navLinksBaseOnRole?.map((nav) => (
         <Stack key={nav?.title} spacing={0}>
           <Text
             fontSize="20px"

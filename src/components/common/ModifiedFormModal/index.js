@@ -6,7 +6,7 @@ import InputField from "components/common/InputField";
 import SelectField from "../SelectField";
 
 const ModifiedFormModal = ({
-  onClose,
+  onOriginalClose,
   onSave,
   data,
   formLayoutData,
@@ -39,8 +39,11 @@ const ModifiedFormModal = ({
     enableReinitialize: true,
     initialValues: initialValues,
     onSubmit: async (values) => {
-      await onSave?.(values);
-      onClose();
+      const result = await onSave?.(values);
+
+      if (result) {
+        onOriginalClose();
+      }
     },
     validationSchema: formValidationSchema,
   });
@@ -92,7 +95,7 @@ const ModifiedFormModal = ({
         case "dropdown": {
           component = (
             <SelectField
-              placeholder="Chọn Khoa"
+              placeholder={form?.properties?.placeholder}
               label={form?.properties?.label}
               name={form?.name}
               value={values?.[form?.name]}
@@ -133,7 +136,7 @@ const ModifiedFormModal = ({
       <Stack spacing="63px">
         <Stack spacing="45px">{formLayoutData?.map(renderForm)}</Stack>
         <Stack direction="row" spacing="8px" justifyContent="flex-end">
-          <Button variant="ghost" mr={3} onClick={onClose}>
+          <Button variant="ghost" mr={3} onClick={onOriginalClose}>
             Huỷ bỏ
           </Button>
           <Button

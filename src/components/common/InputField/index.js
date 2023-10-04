@@ -90,22 +90,25 @@ const InputField = ({
           <InputIconContainer>{leftInputIcon}</InputIconContainer>
         )}
         {usingTextArea ? (
-          <Textarea
-            name={name}
-            type={type}
-            placeholder={placeholder}
-            onKeyDown={usingEnterInput ? (e) => handleOnKeyDown(e) : () => {}}
-            focusBorderColor={!showingFocusBorder && "transparent"}
-            _disabled={isDisabled && disabledStyle}
-            disabled={isDisabled}
-            onBlur={onBlur}
-            onChange={onChange}
-            borderColor="black"
-            _hover={{
-              borderColor: "black",
-            }}
-            {...rest}
-          />
+          <Stack width="full" spacing="5px">
+            <Textarea
+              name={name}
+              type={type}
+              placeholder={placeholder}
+              onKeyDown={usingEnterInput ? (e) => handleOnKeyDown(e) : () => {}}
+              focusBorderColor={!showingFocusBorder && "transparent"}
+              _disabled={isDisabled && disabledStyle}
+              disabled={isDisabled}
+              onBlur={onBlur}
+              onChange={onChange}
+              borderColor="black"
+              _hover={{
+                borderColor: "black",
+              }}
+              {...rest}
+            />
+            <FormErrorMessage>{error}</FormErrorMessage>
+          </Stack>
         ) : (
           <InputGroup flexDirection="column">
             {leftText && (

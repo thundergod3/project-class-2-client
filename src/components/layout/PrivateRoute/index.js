@@ -1,20 +1,21 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
-export const PrivateLayout = ({
+import useAuthenticated from "hooks/useAuthenticated";
+import { Routes } from "constants/routes";
+
+export const PrivateRoute = ({
   layout: Layout,
   component: Component,
-  isPrivate,
   redirect,
   title,
   ...props
 }) => {
-  // const isAuthenticated = useAuthenticated();
-  // const { user } = useCurrentUser();
+  const { isAuthenticated, userData } = useAuthenticated();
 
-  // if (!isAuthenticated && isPrivate && user === undefined) {
-  //   return <Redirect to={redirect ?? Routes.login} />;
-  // }
+  if (!isAuthenticated && userData === undefined) {
+    return <Redirect to={redirect ?? Routes.login} />;
+  }
 
   return (
     <Route
@@ -34,4 +35,4 @@ export const PrivateLayout = ({
   );
 };
 
-export default PrivateLayout;
+export default PrivateRoute;

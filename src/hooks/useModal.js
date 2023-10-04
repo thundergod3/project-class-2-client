@@ -51,9 +51,11 @@ const useModal = ({
   }, [handleClose]);
 
   const onSave = useCallback(async () => {
-    await handleSave?.(modalState?.data);
+    const result = await handleSave?.(modalState?.data);
 
-    close();
+    if (result) {
+      close();
+    }
   }, [close, handleSave, modalState?.data]);
 
   const Dialog = (props) => {
@@ -83,7 +85,11 @@ const useModal = ({
           )}
 
           <ModalBody py={8}>
-            <ModalBodyComponent {...props} {...modalState} />
+            <ModalBodyComponent
+              {...props}
+              {...modalState}
+              onOriginalClose={close}
+            />
           </ModalBody>
           {usingFooter && (
             <ModalFooter>

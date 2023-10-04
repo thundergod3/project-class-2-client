@@ -9,7 +9,7 @@ class DocumentsService {
   // [POST]
   createDocument = (data) => HTTPMethod.post(Endpoints.createDocument, data);
 
-  // [POST]
+  // [PUT]
   updateDocument = (id, data) =>
     HTTPMethod.put(Endpoints.updateDocument.replaceAll(":id", id), data);
 

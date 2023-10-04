@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Switch } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import store from "stores/configureStore";
@@ -16,9 +16,7 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
         <ChakraProvider theme={theme}>
-          <Switch>
-            <App />
-          </Switch>
+          <App />
         </ChakraProvider>
       </Router>
     </Provider>

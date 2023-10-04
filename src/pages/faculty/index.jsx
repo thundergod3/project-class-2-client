@@ -22,7 +22,7 @@ const FacultyPage = () => {
     isModifiedFacultyLoading,
     refreshFaculty,
   } = useFaculty();
-  const { open, close, Dialog } = useModal({
+  const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
   });
@@ -87,6 +87,8 @@ const FacultyPage = () => {
       }
 
       handleGetFaculty();
+
+      return true;
     },
     [createFaculty, handleGetFaculty, updateFaculty]
   );
@@ -137,7 +139,6 @@ const FacultyPage = () => {
         />
       </Stack>
       <Dialog
-        onClose={close}
         onSave={handleModifiedFaculty}
         formLayoutData={formLayoutData}
         formValidationSchema={modifiedFacultyValidation}

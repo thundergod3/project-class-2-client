@@ -8,10 +8,17 @@ class TopicsService {
 
   // [POST]
   createTopic = (data) => HTTPMethod.post(Endpoints.createTopic, data);
+  proposalTopic = (data) => HTTPMethod.post(Endpoints.proposalTopic, data);
 
-  // [POST]
+  // [PUT]
   updateTopic = (id, data) =>
     HTTPMethod.put(Endpoints.updateTopic.replaceAll(":id", id), data);
+  registerTopic = (id, data) =>
+    HTTPMethod.put(Endpoints.registerTopic.replaceAll(":id", id), data);
+  unRegisterTopic = (id, data) =>
+    HTTPMethod.put(Endpoints.unRegisterTopic.replaceAll(":id", id), data);
+  approveTopic = (id) =>
+    HTTPMethod.put(Endpoints.approveTopic.replaceAll(":id", id));
 
   // [DELETE]
   deleteTopic = (id) =>

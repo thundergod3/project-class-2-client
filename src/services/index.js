@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { LOCAL_KEYS } from "constants/values";
+
 const httpClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
@@ -9,7 +11,7 @@ const httpClient = axios.create({
 
 const baseAxios = () => {
   httpClient.interceptors.request.use(function (config) {
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = JSON.parse(localStorage.getItem(LOCAL_KEYS.token));
 
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;

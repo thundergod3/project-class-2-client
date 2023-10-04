@@ -1,31 +1,27 @@
 import { Box, Stack } from "@chakra-ui/react";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import usePagination from "hooks/usePagination";
 import useModal from "hooks/useModal";
-import { modifiedMajorValidation } from "./constants";
-import useMajor from "hooks/useMajor";
-import useFaculty from "hooks/useFaculty";
+import { modifiedOutlineValidation } from "./constants";
+import useOutline from "hooks/useOutline";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
 
-const MajorPage = () => {
+const OutlinePage = () => {
   const { page, setPage } = usePagination();
-  const { faculties } = useFaculty({
-    initialGet: true,
-  });
   const {
-    majors,
-    isMajorLoading,
-    createMajor,
-    updateMajor,
-    deleteMajor,
-    isModifiedMajorLoading,
-    refreshMajor,
-  } = useMajor();
+    outlines,
+    isOutlineLoading,
+    createOutline,
+    updateOutline,
+    refreshOutline,
+    deleteOutline,
+    isModifiedOutlineLoading,
+  } = useOutline();
   const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
@@ -33,19 +29,10 @@ const MajorPage = () => {
   const { open: openRemove, Dialog: DialogRemove } = useModal({
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
-      await deleteMajor(id);
-      refreshMajor();
+      await deleteOutline(id);
+      refreshOutline();
     },
   });
-
-  const facultyOptionList = useMemo(
-    () =>
-      faculties?.results?.map((record) => ({
-        value: record?.id,
-        label: record?.code,
-      })),
-    [faculties?.results]
-  );
 
   const columnData = [
     {
@@ -55,16 +42,11 @@ const MajorPage = () => {
     },
     {
       columnId: "code",
-      label: "Mã ngành",
+      label: "Mã đề cương",
     },
     {
       columnId: "name",
-      label: "Tên ngành học",
-    },
-    {
-      columnId: "faculty",
-      label: "Khoa",
-      render: (data) => data?.name,
+      label: "Tên đề cương",
     },
     {
       columnId: "action",
@@ -74,55 +56,45 @@ const MajorPage = () => {
   const formLayoutData = [
     {
       type: "input",
-      name: "code",
+      name: "name",
       properties: {
-        label: "Mã Ngành học",
+        label: "Tên đề cương",
         minWidthLabel: "150px",
       },
     },
     {
       type: "input",
-      name: "name",
+      name: "code",
       properties: {
-        label: "Tên Ngành học",
-        minWidthLabel: "150px",
-      },
-    },
-    {
-      type: "dropdown",
-      name: "facultyId",
-      options: facultyOptionList,
-      properties: {
-        label: "Khoa",
-        placeholder: "Chọn khoa",
+        label: "Mã đề cương",
         minWidthLabel: "150px",
       },
     },
   ];
 
-  const handleGetMajor = useCallback(() => {
-    refreshMajor({
+  const handleGetOutline = useCallback(() => {
+    refreshOutline({
       page,
     });
-  }, [page, refreshMajor]);
+  }, [page, refreshOutline]);
 
-  const handleModifiedMajor = useCallback(
+  const handleModifiedOutline = useCallback(
     async (values) => {
       if (values?.id) {
-        await updateMajor(values?.id, values);
+        await updateOutline(values?.id, values);
       } else {
-        await createMajor(values);
+        await createOutline(values);
       }
 
-      handleGetMajor();
+      handleGetOutline();
 
       return true;
     },
-    [createMajor, handleGetMajor, updateMajor]
+    [createOutline, handleGetOutline, updateOutline]
   );
 
   useEffect(() => {
-    handleGetMajor();
+    handleGetOutline();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -131,14 +103,14 @@ const MajorPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên ngành học, mã ngành học"
+            placeholder="Tìm kiếm theo tên tên đề cương, mã đề cương"
             onCreate={() =>
               open({
-                title: "Thêm mới Ngành học",
+                title: "Thêm mới đề cương",
               })
             }
             onSearch={(keyword) =>
-              refreshMajor({
+              refreshOutline({
                 page,
                 keyword,
               })
@@ -146,35 +118,35 @@ const MajorPage = () => {
           />
         </Box>
         <Table
-          loading={isMajorLoading}
-          totalPage={majors?.total}
+          loading={isOutlineLoading}
           columnData={columnData}
-          tableData={majors?.results}
+          tableData={outlines?.results}
+          totalPage={outlines?.total}
           page={page}
           setPage={setPage}
           onEdit={(data) =>
             open({
-              title: "Chỉnh sửa Ngành học",
+              title: "Chỉnh sửa đề cương",
               data,
             })
           }
           onRemove={(id) =>
             openRemove({
-              title: "Xác nhận xoá Ngành",
+              title: "Xác nhận xoá đề cương",
               data: id,
             })
           }
         />
       </Stack>
       <Dialog
-        onSave={handleModifiedMajor}
+        onSave={handleModifiedOutline}
         formLayoutData={formLayoutData}
-        formValidationSchema={modifiedMajorValidation}
-        isLoading={isModifiedMajorLoading}
+        formValidationSchema={modifiedOutlineValidation}
+        isLoading={isModifiedOutlineLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá Ngành này không?" />
+      <DialogRemove description="Bạn có chắc chắn muốn xoá đề cương này không?" />
     </>
   );
 };
 
-export default MajorPage;
+export default OutlinePage;

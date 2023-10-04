@@ -13,6 +13,7 @@ const TableFilter = ({
   onSearch,
   createText = "Thêm mới",
   onCreate,
+  hideCreateBtn,
 }) => {
   const handleSearch = (event) => {
     const { value } = event.target;
@@ -38,16 +39,18 @@ const TableFilter = ({
           leftInputIcon={<Icon as={GoSearch} boxSize={4} />}
         />
       </SearchField>
-      <Button
-        _hover={{
-          background: "background.primary",
-        }}
-        leftIcon={<Icon as={GrAdd} boxSize={4} />}
-        background="background.primary"
-        onClick={onCreate}
-        h="50px">
-        {createText}
-      </Button>
+      {!hideCreateBtn && (
+        <Button
+          _hover={{
+            background: "background.primary",
+          }}
+          leftIcon={<Icon as={GrAdd} boxSize={4} />}
+          background="background.primary"
+          onClick={onCreate}
+          h="50px">
+          {createText}
+        </Button>
+      )}
     </Stack>
   );
 };

@@ -81,6 +81,101 @@ const useTopic = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
+  const registerTopic = useCallback(
+    async (id) => {
+      setIsModifiedLoading(true);
+
+      try {
+        await topicsService.registerTopic(id);
+
+        openNotificationSuccess("Đăng ký đề tài hướng dẫn KLTN thành công");
+        setIsModifiedLoading(false);
+      } catch (error) {
+        openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
+      }
+    },
+    [openNotificationError, openNotificationSuccess]
+  );
+
+  const unRegisterTopic = useCallback(
+    async (id) => {
+      setIsModifiedLoading(true);
+
+      try {
+        await topicsService.unRegisterTopic(id);
+
+        openNotificationSuccess("Huỷ đăng ký đề tài hướng dẫn KLTN thành công");
+        setIsModifiedLoading(false);
+      } catch (error) {
+        openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
+      }
+    },
+    [openNotificationError, openNotificationSuccess]
+  );
+
+  const proposalTopic = useCallback(
+    async (body) => {
+      setIsModifiedLoading(true);
+
+      try {
+        const { data } = await topicsService.proposalTopic(body);
+
+        if (data?.msg) {
+          openNotificationError(data?.msg);
+          setIsModifiedLoading(false);
+
+          return false;
+        } else {
+          openNotificationSuccess(
+            "Thêm mới Đề xuất đề tài hướng dẫn KLTN thành công"
+          );
+        }
+
+        setIsModifiedLoading(false);
+
+        return true;
+      } catch (error) {
+        openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
+      }
+    },
+    [openNotificationError, openNotificationSuccess]
+  );
+
+  const approveTopic = useCallback(
+    async (id) => {
+      setIsModifiedLoading(true);
+
+      try {
+        await topicsService.approveTopic(id);
+
+        openNotificationSuccess("Phê duyệt Đề tài hướng dẫn KLTN thành công");
+      } catch (error) {
+        openNotificationError(error?.message || "Something error");
+      }
+    },
+    [openNotificationError, openNotificationSuccess]
+  );
+
+  const unApproveTopic = useCallback(
+    async (id) => {
+      setIsModifiedLoading(true);
+
+      try {
+        await topicsService.deleteTopic(id);
+
+        openNotificationSuccess(
+          "không phê duyệt Đề tài hướng dẫn KLTN thành công"
+        );
+      } catch (error) {
+        openNotificationError(error?.message || "Something error");
+      }
+    },
+    [openNotificationError, openNotificationSuccess]
+  );
+
   useEffect(() => {
     if (initialGet) {
       handleGetTopic({
@@ -98,6 +193,11 @@ const useTopic = ({ initialGet } = {}) => {
     createTopic,
     updateTopic,
     deleteTopic,
+    registerTopic,
+    unRegisterTopic,
+    proposalTopic,
+    approveTopic,
+    unApproveTopic,
   };
 };
 

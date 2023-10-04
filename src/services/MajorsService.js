@@ -9,7 +9,7 @@ class MajorsService {
   // [POST]
   createMajor = (data) => HTTPMethod.post(Endpoints.createMajor, data);
 
-  // [POST]
+  // [PUT]
   updateMajor = (id, data) =>
     HTTPMethod.put(Endpoints.updateMajor.replaceAll(":id", id), data);
 

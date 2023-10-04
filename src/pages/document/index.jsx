@@ -15,14 +15,14 @@ const DocumentPage = () => {
   const { page, setPage } = usePagination();
   const {
     documents,
-    isStudentLoading,
+    isDocumentLoading,
     createDocument,
     updateDocument,
     refreshDocument,
     deleteDocument,
     isModifiedDocumentLoading,
   } = useDocument();
-  const { open, close, Dialog } = useModal({
+  const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
   });
@@ -87,6 +87,8 @@ const DocumentPage = () => {
       }
 
       handleGetDocument();
+
+      return true;
     },
     [createDocument, handleGetDocument, updateDocument]
   );
@@ -116,7 +118,7 @@ const DocumentPage = () => {
           />
         </Box>
         <Table
-          loading={isStudentLoading}
+          loading={isDocumentLoading}
           columnData={columnData}
           tableData={documents?.results}
           totalPage={documents?.total}
@@ -137,7 +139,6 @@ const DocumentPage = () => {
         />
       </Stack>
       <Dialog
-        onClose={close}
         onSave={handleModifiedDocument}
         formLayoutData={formLayoutData}
         formValidationSchema={modifiedDocumentValidation}

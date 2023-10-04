@@ -30,7 +30,7 @@ const ModulePage = () => {
     refreshModule,
     isModifiedModuleLoading,
   } = useModule();
-  const { open, close, Dialog } = useModal({
+  const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
   });
@@ -76,12 +76,12 @@ const ModulePage = () => {
     {
       columnId: "major",
       label: "Ngành",
-      render: (data) => data?.code,
+      render: (data) => data?.name,
     },
     {
       columnId: "faculty",
       label: "Khoa",
-      render: (data) => data?.code,
+      render: (data) => data?.name,
     },
     {
       columnId: "action",
@@ -111,6 +111,7 @@ const ModulePage = () => {
       options: facultyOptionList,
       properties: {
         label: "Khoa",
+        placeholder: "Chọn khoa",
         minWidthLabel: "150px",
       },
     },
@@ -120,6 +121,7 @@ const ModulePage = () => {
       options: majorOptionList,
       properties: {
         label: "Ngành",
+        placeholder: "Chọn ngành",
         minWidthLabel: "150px",
       },
     },
@@ -140,6 +142,8 @@ const ModulePage = () => {
       }
 
       handleGetModule();
+
+      return true;
     },
     [createModule, handleGetModule, updateModule]
   );
@@ -190,7 +194,6 @@ const ModulePage = () => {
         />
       </Stack>
       <Dialog
-        onClose={close}
         onSave={handleModifiedModule}
         formLayoutData={formLayoutData}
         formValidationSchema={modifiedModuleValidation}

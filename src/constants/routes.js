@@ -7,4 +7,9 @@ export const Routes = {
   students: "/students",
   topics: "/topics",
   documents: "/documents",
+  chooseTopics: "/chose-topics",
+  outlines: "/outlines",
+  login: "/login",
+  proposalTopics: "/proposal-topics",
+  approveTopics: "/approve-topics",
 };

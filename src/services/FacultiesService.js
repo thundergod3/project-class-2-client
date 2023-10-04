@@ -9,7 +9,7 @@ class FacultiesService {
   // [POST]
   createFaculty = (data) => HTTPMethod.post(Endpoints.createFaculty, data);
 
-  // [POST]
+  // [PUT]
   updateFaculty = (id, data) =>
     HTTPMethod.put(Endpoints.updateFaculty.replaceAll(":id", id), data);
 
