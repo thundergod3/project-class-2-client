@@ -120,6 +120,7 @@ const TeacherPage = () => {
       properties: {
         label: "Khoa",
         minWidthLabel: "150px",
+        placeholder: "Chọn khoa",
       },
     },
     {
@@ -129,6 +130,7 @@ const TeacherPage = () => {
       properties: {
         label: "Ngành",
         minWidthLabel: "150px",
+        placeholder: "Chọn ngành",
       },
     },
   ];
