@@ -102,13 +102,21 @@ const ModifiedFormModal = ({
               placeholder={form?.properties?.placeholder}
               label={form?.properties?.label}
               name={form?.name}
-              value={values?.[form?.name]}
+              value={
+                form?.properties?.isMulti
+                  ? values?.[form?.name]
+                  : form?.options?.find(
+                      (record) => record?.value === values?.[form?.name]
+                    )
+              }
               touched={touched?.[form?.name]}
               error={errors?.[form?.name]}
               onChange={(value) =>
                 setValues({
                   ...values,
-                  [form?.name]: form?.properties?.isMulti ? value : value?.id,
+                  [form?.name]: form?.properties?.isMulti
+                    ? value
+                    : value?.value,
                 })
               }
               onBlur={handleBlur}
