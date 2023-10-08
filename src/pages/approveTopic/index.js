@@ -74,18 +74,26 @@ const ApproveTopicPage = () => {
     },
   ];
 
-  const handleGetProposalTopic = useCallback(() => {
-    refreshTopic({
-      page,
-      status: "draft",
-    });
-  }, [page, refreshTopic]);
+  const handleGetProposalTopic = useCallback(
+    (keyword) => {
+      refreshTopic({
+        page,
+        status: "draft",
+        keyword,
+      });
+    },
+    [page, refreshTopic]
+  );
 
   const handelApproveTopic = useCallback(
     async (values) => {
-      await approveTopic(values?.id);
+      await approveTopic(values?.id, {
+        userId: values?.userId,
+      });
 
       handleGetProposalTopic();
+
+      return true;
     },
     [approveTopic, handleGetProposalTopic]
   );
@@ -95,6 +103,8 @@ const ApproveTopicPage = () => {
       await unApproveTopic(values?.id);
 
       handleGetProposalTopic();
+
+      return true;
     },
     [handleGetProposalTopic, unApproveTopic]
   );
@@ -110,13 +120,7 @@ const ApproveTopicPage = () => {
         <Box padding="0px 24px">
           <TableFilter
             placeholder="Tìm kiếm theo tên đề tài, mã đề tài"
-            onSearch={(keyword) =>
-              refreshTopic({
-                page,
-                status: "draft",
-                keyword,
-              })
-            }
+            onSearch={(keyword) => handleGetProposalTopic(keyword)}
             hideCreateBtn
           />
         </Box>

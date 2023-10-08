@@ -3,33 +3,29 @@ import React, { useCallback, useEffect, useMemo } from "react";
 
 import usePagination from "hooks/usePagination";
 import useModal from "hooks/useModal";
-import { modifiedTeacherValidation } from "./constants";
-import useFaculty from "hooks/useFaculty";
+import { modifiedMajorValidation } from "./constants";
 import useMajor from "hooks/useMajor";
-import useTeacher from "hooks/useTeacher";
+import useFaculty from "hooks/useFaculty";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
 
-const TeacherPage = () => {
+const MajorPage = () => {
   const { page, setPage } = usePagination();
   const { faculties } = useFaculty({
     initialGet: true,
   });
-  const { majors } = useMajor({
-    initialGet: true,
-  });
   const {
-    teachers,
-    isTeacherLoading,
-    createTeacher,
-    updateTeacher,
-    refreshTeacher,
-    deleteTeacher,
-    isModifiedTeacherLoading,
-  } = useTeacher();
+    majors,
+    isMajorLoading,
+    createMajor,
+    updateMajor,
+    deleteMajor,
+    isModifiedMajorLoading,
+    refreshMajor,
+  } = useMajor();
   const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
@@ -37,8 +33,10 @@ const TeacherPage = () => {
   const { open: openRemove, Dialog: DialogRemove } = useModal({
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
-      await deleteTeacher(id);
-      refreshTeacher();
+      await deleteMajor(id);
+      handleGetMajor();
+
+      return true;
     },
   });
 
@@ -46,17 +44,9 @@ const TeacherPage = () => {
     () =>
       faculties?.results?.map((record) => ({
         value: record?.id,
-        label: record?.code,
+        label: record?.name,
       })),
     [faculties?.results]
-  );
-  const majorOptionList = useMemo(
-    () =>
-      majors?.results?.map((record) => ({
-        value: record?.id,
-        label: record?.code,
-      })),
-    [majors?.results]
   );
 
   const columnData = [
@@ -67,16 +57,11 @@ const TeacherPage = () => {
     },
     {
       columnId: "code",
-      label: "Mã giáo viên",
+      label: "Mã ngành",
     },
     {
       columnId: "name",
-      label: "Tên giáo viên",
-    },
-    {
-      columnId: "major",
       label: "Tên ngành học",
-      render: (data) => data?.name,
     },
     {
       columnId: "faculty",
@@ -91,9 +76,9 @@ const TeacherPage = () => {
   const formLayoutData = [
     {
       type: "input",
-      name: "username",
+      name: "code",
       properties: {
-        label: "Tên đăng nhập",
+        label: "Mã Ngành học",
         minWidthLabel: "150px",
       },
     },
@@ -101,15 +86,7 @@ const TeacherPage = () => {
       type: "input",
       name: "name",
       properties: {
-        label: "Tên giáo viên",
-        minWidthLabel: "150px",
-      },
-    },
-    {
-      type: "input",
-      name: "code",
-      properties: {
-        label: "Mã giáo viên",
+        label: "Tên Ngành học",
         minWidthLabel: "150px",
       },
     },
@@ -119,45 +96,39 @@ const TeacherPage = () => {
       options: facultyOptionList,
       properties: {
         label: "Khoa",
-        minWidthLabel: "150px",
         placeholder: "Chọn khoa",
-      },
-    },
-    {
-      type: "dropdown",
-      name: "majorId",
-      options: majorOptionList,
-      properties: {
-        label: "Ngành",
         minWidthLabel: "150px",
-        placeholder: "Chọn ngành",
       },
     },
   ];
 
-  const handleGetTeacher = useCallback(() => {
-    refreshTeacher({
-      page,
-    });
-  }, [page, refreshTeacher]);
+  const handleGetMajor = useCallback(
+    (keyword) => {
+      refreshMajor({
+        page,
+        keyword,
+      });
+    },
+    [page, refreshMajor]
+  );
 
-  const handleModifiedTeacher = useCallback(
+  const handleModifiedMajor = useCallback(
     async (values) => {
       if (values?.id) {
-        await updateTeacher(values?.id, values);
+        await updateMajor(values?.id, values);
       } else {
-        await createTeacher(values);
+        await createMajor(values);
       }
 
-      handleGetTeacher();
+      handleGetMajor();
 
       return true;
     },
-    [createTeacher, handleGetTeacher, updateTeacher]
+    [createMajor, handleGetMajor, updateMajor]
   );
 
   useEffect(() => {
-    handleGetTeacher();
+    handleGetMajor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -166,50 +137,45 @@ const TeacherPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên giáo viên, mã giáo viên"
+            placeholder="Tìm kiếm theo tên ngành học, mã ngành học"
             onCreate={() =>
               open({
-                title: "Thêm mới Giáo viên",
+                title: "Thêm mới Ngành học",
               })
             }
-            onSearch={(keyword) =>
-              refreshTeacher({
-                page,
-                keyword,
-              })
-            }
+            onSearch={(keyword) => handleGetMajor(keyword)}
           />
         </Box>
         <Table
-          loading={isTeacherLoading}
+          loading={isMajorLoading}
+          totalPage={majors?.total}
           columnData={columnData}
-          tableData={teachers?.results}
-          totalPage={teachers?.total}
+          tableData={majors?.results}
           page={page}
           setPage={setPage}
           onEdit={(data) =>
             open({
-              title: "Chỉnh sửa Giáo viên",
+              title: "Chỉnh sửa Ngành học",
               data,
             })
           }
           onRemove={(id) =>
             openRemove({
-              title: "Xác nhận xoá Giáo viên",
+              title: "Xác nhận xoá Ngành",
               data: id,
             })
           }
         />
       </Stack>
       <Dialog
-        onSave={handleModifiedTeacher}
+        onSave={handleModifiedMajor}
         formLayoutData={formLayoutData}
-        formValidationSchema={modifiedTeacherValidation}
-        isLoading={isModifiedTeacherLoading}
+        formValidationSchema={modifiedMajorValidation}
+        isLoading={isModifiedMajorLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá Giáo viên này không?" />
+      <DialogRemove description="Bạn có chắc chắn muốn xoá Ngành này không?" />
     </>
   );
 };
 
-export default TeacherPage;
+export default MajorPage;

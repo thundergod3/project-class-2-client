@@ -3,17 +3,17 @@ import React, { useCallback, useEffect, useMemo } from "react";
 
 import usePagination from "hooks/usePagination";
 import useModal from "hooks/useModal";
-import { modifiedModuleValidation } from "./constants";
+import { modifiedStudentValidation } from "./constants";
 import useFaculty from "hooks/useFaculty";
 import useMajor from "hooks/useMajor";
-import useModule from "hooks/useModule";
+import useStudent from "hooks/useStudent";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
 
-const ModulePage = () => {
+const StudentPage = () => {
   const { page, setPage } = usePagination();
   const { faculties } = useFaculty({
     initialGet: true,
@@ -22,14 +22,14 @@ const ModulePage = () => {
     initialGet: true,
   });
   const {
-    modules,
-    isModuleLoading,
-    createModule,
-    updateModule,
-    deleteModule,
-    refreshModule,
-    isModifiedModuleLoading,
-  } = useModule();
+    students,
+    isStudentLoading,
+    createStudent,
+    updateStudent,
+    refreshStudent,
+    deleteTeacher,
+    isModifiedStudentLoading,
+  } = useStudent();
   const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
@@ -37,8 +37,10 @@ const ModulePage = () => {
   const { open: openRemove, Dialog: DialogRemove } = useModal({
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
-      await deleteModule(id);
-      refreshModule();
+      await deleteTeacher(id);
+      handleGetStudent();
+
+      return true;
     },
   });
 
@@ -46,7 +48,7 @@ const ModulePage = () => {
     () =>
       faculties?.results?.map((record) => ({
         value: record?.id,
-        label: record?.code,
+        label: record?.name,
       })),
     [faculties?.results]
   );
@@ -54,7 +56,7 @@ const ModulePage = () => {
     () =>
       majors?.results?.map((record) => ({
         value: record?.id,
-        label: record?.code,
+        label: record?.name,
       })),
     [majors?.results]
   );
@@ -67,15 +69,15 @@ const ModulePage = () => {
     },
     {
       columnId: "code",
-      label: "Mã học phần",
+      label: "Mã sinh viên",
     },
     {
       columnId: "name",
-      label: "Tên học phần",
+      label: "Tên sinh viên",
     },
     {
       columnId: "major",
-      label: "Ngành",
+      label: "Tên ngành học",
       render: (data) => data?.name,
     },
     {
@@ -91,9 +93,17 @@ const ModulePage = () => {
   const formLayoutData = [
     {
       type: "input",
+      name: "username",
+      properties: {
+        label: "Tên đăng nhập",
+        minWidthLabel: "150px",
+      },
+    },
+    {
+      type: "input",
       name: "name",
       properties: {
-        label: "Tên học phần",
+        label: "Tên sinh viên",
         minWidthLabel: "150px",
       },
     },
@@ -101,7 +111,7 @@ const ModulePage = () => {
       type: "input",
       name: "code",
       properties: {
-        label: "Tên học phần",
+        label: "Mã sinh viên",
         minWidthLabel: "150px",
       },
     },
@@ -111,8 +121,8 @@ const ModulePage = () => {
       options: facultyOptionList,
       properties: {
         label: "Khoa",
-        placeholder: "Chọn khoa",
         minWidthLabel: "150px",
+        placeholder: "Chọn khoa",
       },
     },
     {
@@ -121,35 +131,39 @@ const ModulePage = () => {
       options: majorOptionList,
       properties: {
         label: "Ngành",
-        placeholder: "Chọn ngành",
         minWidthLabel: "150px",
+        placeholder: "Chọn ngành",
       },
     },
   ];
 
-  const handleGetModule = useCallback(() => {
-    refreshModule({
-      page,
-    });
-  }, [page, refreshModule]);
+  const handleGetStudent = useCallback(
+    (keyword) => {
+      refreshStudent({
+        page,
+        keyword,
+      });
+    },
+    [page, refreshStudent]
+  );
 
-  const handleModifiedModule = useCallback(
+  const handleModifiedStudent = useCallback(
     async (values) => {
       if (values?.id) {
-        await updateModule(values?.id, values);
+        await updateStudent(values?.id, values);
       } else {
-        await createModule(values);
+        await createStudent(values);
       }
 
-      handleGetModule();
+      handleGetStudent();
 
       return true;
     },
-    [createModule, handleGetModule, updateModule]
+    [createStudent, handleGetStudent, updateStudent]
   );
 
   useEffect(() => {
-    handleGetModule();
+    handleGetStudent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -158,50 +172,45 @@ const ModulePage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên học phần, mã học phần"
+            placeholder="Tìm kiếm theo tên tên sinh viên, mã sinh viên"
             onCreate={() =>
               open({
-                title: "Thêm mới học phần KLTN",
+                title: "Thêm mới sinh viên",
               })
             }
-            onSearch={(keyword) =>
-              refreshModule({
-                page,
-                keyword,
-              })
-            }
+            onSearch={(keyword) => handleGetStudent(keyword)}
           />
         </Box>
         <Table
-          loading={isModuleLoading}
+          loading={isStudentLoading}
           columnData={columnData}
-          tableData={modules?.results}
-          totalPage={modules?.total}
+          tableData={students?.results}
+          totalPage={students?.total}
           page={page}
           setPage={setPage}
           onEdit={(data) =>
             open({
-              title: "Chỉnh sửa học phần KLTN",
+              title: "Chỉnh sửa sinh viên",
               data,
             })
           }
           onRemove={(id) =>
             openRemove({
-              title: "Xác nhận xoá Học phần",
+              title: "Xác nhận xoá sinh viên",
               data: id,
             })
           }
         />
       </Stack>
       <Dialog
-        onSave={handleModifiedModule}
+        onSave={handleModifiedStudent}
         formLayoutData={formLayoutData}
-        formValidationSchema={modifiedModuleValidation}
-        isLoading={isModifiedModuleLoading}
+        formValidationSchema={modifiedStudentValidation}
+        isLoading={isModifiedStudentLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá Học phần này không?" />
+      <DialogRemove description="Bạn có chắc chắn muốn xoá sinh viên này không?" />
     </>
   );
 };
 
-export default ModulePage;
+export default StudentPage;

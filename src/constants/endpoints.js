@@ -51,6 +51,23 @@ const Endpoints = {
   register: "/auth/register",
   forgotPassword: "/auth/forgot-password",
   resetPassword: "/auth/reset-password",
+
+  // THESIS
+  getThesisList: "/theses",
+  getThesisDetail: "/theses/:id",
+  createThesis: "/theses/create",
+  updateThesis: "/theses/update/:id",
+  approveThesis: "/theses/approve/:id",
+  deleteThesis: "/theses/delete/:id",
+  createFinishThesis: "/theses/create-finish",
+  assignReviewTeacher: "/theses/assign-teacher/:id",
+  updateCouncil: "/theses/council/:id",
+
+  // REPORT THESIS
+  getReportThesisList: "/report-theses",
+  createReportThesis: "/report-theses/create",
+  updateReportThesis: "/report-theses/update/:id",
+  deleteReportThesis: "/report-theses/delete/:id",
 };
 
 export default Endpoints;

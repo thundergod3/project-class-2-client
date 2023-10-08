@@ -32,6 +32,26 @@ export const navLinksAdmin = [
         route: Routes.topics,
         title: "Quản lý đề tài hướng dẫn KLTN",
       },
+      {
+        route: Routes.theses,
+        title: "Quản lý bảo vệ KLTN",
+      },
+      {
+        route: Routes.assignReviewTeachers,
+        title: "Phân công giảng viên phản biện",
+      },
+      {
+        route: Routes.councils,
+        title: "Quản lý hội đồng bảo vệ",
+      },
+      {
+        route: Routes.reportTheses,
+        title: "Quản lý biên bản KLTN",
+      },
+      {
+        route: Routes.resultTheses,
+        title: "Quản lý kết quả KLTN",
+      },
     ],
   },
   {
@@ -105,6 +125,10 @@ export const navLinksStudent = [
       {
         route: Routes.outlines,
         title: "Quản lý đề cương",
+      },
+      {
+        route: Routes.registerThesis,
+        title: "Đăng ký bảo vệ KLTN",
       },
     ],
   },

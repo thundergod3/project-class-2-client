@@ -30,7 +30,7 @@ const FacultyPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteFaculty(id);
-      refreshFaculty();
+      handleGetFaculty();
     },
   });
 
@@ -72,11 +72,15 @@ const FacultyPage = () => {
     },
   ];
 
-  const handleGetFaculty = useCallback(() => {
-    refreshFaculty({
-      page,
-    });
-  }, [page, refreshFaculty]);
+  const handleGetFaculty = useCallback(
+    (keyword) => {
+      refreshFaculty({
+        page,
+        keyword,
+      });
+    },
+    [page, refreshFaculty]
+  );
 
   const handleModifiedFaculty = useCallback(
     async (values) => {
@@ -109,12 +113,7 @@ const FacultyPage = () => {
                 title: "Thêm mới Khoa",
               })
             }
-            onSearch={(keyword) =>
-              refreshFaculty({
-                page,
-                keyword,
-              })
-            }
+            onSearch={(keyword) => handleGetFaculty(keyword)}
           />
         </Box>
         <Table

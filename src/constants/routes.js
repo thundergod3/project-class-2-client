@@ -12,4 +12,10 @@ export const Routes = {
   login: "/login",
   proposalTopics: "/proposal-topics",
   approveTopics: "/approve-topics",
+  theses: "/theses",
+  registerThesis: "/register-thesis",
+  resultTheses: "/result-theses",
+  assignReviewTeachers: "/assign-review-teachers",
+  councils: "/councils",
+  reportTheses: "/report-theses",
 };

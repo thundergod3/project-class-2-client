@@ -1,7 +1,8 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
+import { Select } from "chakra-react-select";
 
-import { FormControl, FormLabel, Select } from "./selectField.styles";
+import { FormControl, FormLabel } from "./selectField.styles";
 
 const SelectField = ({
   name,
@@ -21,6 +22,7 @@ const SelectField = ({
   direction = "column",
   isRequired,
   minWidthLabel,
+  isMulti,
   ...rest
 }) => {
   const isError = error && touched;
@@ -42,29 +44,28 @@ const SelectField = ({
         </FormLabel>
       )}
       <Box flex={1}>
-        <Select
+        <Box
           borderColor={isError ? "red" : "black"}
           borderWidth={isError ? "2px" : "1px"}
           _hover={{
             borderColor: "black",
           }}
-          name={name}
-          value={value}
-          onChange={onChange}
           border={usingBorder ? "solid 1px inherit" : "none"}
-          placeholder={placeholder}
-          cursor="pointer"
-          usingLabel={label}
-          usingPlaceholder={placeholder}
-          onBlur={onBlur}
-          {...selectFieldStyle}
-          {...rest}>
-          {optionList.map((option, index) => (
-            <option key={index} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </Select>
+          borderRadius="6px">
+          <Select
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            usingLabel={label}
+            usingPlaceholder={placeholder}
+            onBlur={onBlur}
+            isMulti={isMulti}
+            options={optionList}
+            {...selectFieldStyle}
+            {...rest}
+          />
+        </Box>
         {error && touched && (
           <Text marginTop="5px" color="red.500" fontSize="14px">
             {error}

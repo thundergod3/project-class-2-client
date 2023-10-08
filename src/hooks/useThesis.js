@@ -2,21 +2,22 @@ import { useCallback, useEffect, useState } from "react";
 
 import useNotification from "./useNotification";
 import QueryString from "utils/queryString";
-import topicsService from "services/TopicsService";
+import thesesService from "services/ThesesService";
 
-const useTopic = ({ initialGet } = {}) => {
+const useThesis = ({ initialGet } = {}) => {
   const [data, setData] = useState({});
+  const [dataDetail, setDataDetail] = useState({});
   const [loading, setLoading] = useState(false);
   const [isModifiedLoading, setIsModifiedLoading] = useState(false);
 
   const { openNotificationSuccess, openNotificationError } = useNotification();
 
-  const handleGetTopic = useCallback(
+  const handleGetThesisList = useCallback(
     async (filter = { page: 0 }) => {
       try {
         setLoading(true);
 
-        const { data } = await topicsService.getTopicList(
+        const { data } = await thesesService.getThesisList(
           QueryString.stringify(filter)
         );
 
@@ -30,14 +31,31 @@ const useTopic = ({ initialGet } = {}) => {
     [openNotificationError]
   );
 
-  const createTopic = useCallback(
+  const handleGetThesisDetail = useCallback(
+    async (id) => {
+      try {
+        setLoading(true);
+
+        const { data } = await thesesService.getThesisDetail(id);
+
+        setDataDetail(data);
+        setLoading(false);
+      } catch (error) {
+        openNotificationError(error?.message || "Something error");
+        setLoading(false);
+      }
+    },
+    [openNotificationError]
+  );
+
+  const createThesis = useCallback(
     async (body) => {
       setIsModifiedLoading(true);
 
       try {
-        await topicsService.createTopic(body);
+        await thesesService.createThesis(body);
 
-        openNotificationSuccess("Thêm mới Đề tài hướng dẫn KLTN thành công");
+        openNotificationSuccess("Đăng ký bảo vệ KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -47,16 +65,14 @@ const useTopic = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
-  const updateTopic = useCallback(
+  const updateThesis = useCallback(
     async (id, body) => {
       setIsModifiedLoading(true);
 
       try {
-        delete body.id;
+        await thesesService.updateThesis(id, body);
 
-        await topicsService.updateTopic(id, body);
-
-        openNotificationSuccess("Chỉnh sửa Đề tài hướng dẫn KLTN thành công");
+        openNotificationSuccess("Chỉnh sửa bảo vệ KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -66,14 +82,14 @@ const useTopic = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
-  const deleteTopic = useCallback(
-    async (id) => {
+  const deleteThesis = useCallback(
+    async (id, body) => {
       setIsModifiedLoading(true);
 
       try {
-        await topicsService.deleteTopic(id);
+        await thesesService.deleteThesis(id, body);
 
-        openNotificationSuccess("Xoá Đề tài hướng dẫn KLTN thành công");
+        openNotificationSuccess("Xoá bảo vệ KLTN thành công");
       } catch (error) {
         openNotificationError(error?.message || "Something error");
       }
@@ -81,61 +97,30 @@ const useTopic = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
-  const registerTopic = useCallback(
-    async (id) => {
+  const approveThesis = useCallback(
+    async (id, body) => {
       setIsModifiedLoading(true);
 
       try {
-        await topicsService.registerTopic(id);
+        await thesesService.approveThesis(id, body);
 
-        openNotificationSuccess("Đăng ký đề tài hướng dẫn KLTN thành công");
-        setIsModifiedLoading(false);
+        openNotificationSuccess("Phê duyệt bảo vệ KLTN thành công");
       } catch (error) {
         openNotificationError(error?.message || "Something error");
-        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]
   );
 
-  const unRegisterTopic = useCallback(
-    async (id) => {
-      setIsModifiedLoading(true);
-
-      try {
-        await topicsService.unRegisterTopic(id);
-
-        openNotificationSuccess("Huỷ đăng ký đề tài hướng dẫn KLTN thành công");
-        setIsModifiedLoading(false);
-      } catch (error) {
-        openNotificationError(error?.message || "Something error");
-        setIsModifiedLoading(false);
-      }
-    },
-    [openNotificationError, openNotificationSuccess]
-  );
-
-  const proposalTopic = useCallback(
+  const createFinishThesis = useCallback(
     async (body) => {
       setIsModifiedLoading(true);
 
       try {
-        const { data } = await topicsService.proposalTopic(body);
+        await thesesService.createFinishThesis(body);
 
-        if (data?.msg) {
-          openNotificationError(data?.msg);
-          setIsModifiedLoading(false);
-
-          return false;
-        } else {
-          openNotificationSuccess(
-            "Thêm mới Đề xuất đề tài hướng dẫn KLTN thành công"
-          );
-        }
-
+        openNotificationSuccess("Đăng ký kết quả bảo vệ KLTN thành công");
         setIsModifiedLoading(false);
-
-        return true;
       } catch (error) {
         openNotificationError(error?.message || "Something error");
         setIsModifiedLoading(false);
@@ -144,33 +129,35 @@ const useTopic = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
-  const approveTopic = useCallback(
+  const assignReviewTeacher = useCallback(
     async (id, body) => {
       setIsModifiedLoading(true);
 
       try {
-        await topicsService.registerTopic(id, body);
+        await thesesService.assignReviewTeacher(id, body);
 
-        openNotificationSuccess("Phê duyệt Đề tài hướng dẫn KLTN thành công");
+        openNotificationSuccess("Phân công giảng viên phản biện thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]
   );
 
-  const unApproveTopic = useCallback(
-    async (id) => {
+  const updateCouncil = useCallback(
+    async (id, body) => {
       setIsModifiedLoading(true);
 
       try {
-        await topicsService.deleteTopic(id);
+        await thesesService.updateCouncil(id, body);
 
-        openNotificationSuccess(
-          "không phê duyệt Đề tài hướng dẫn KLTN thành công"
-        );
+        openNotificationSuccess("Chỉnh sửa hội đồng bảo vệ thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]
@@ -178,7 +165,7 @@ const useTopic = ({ initialGet } = {}) => {
 
   useEffect(() => {
     if (initialGet) {
-      handleGetTopic({
+      handleGetThesisList({
         limit: 1000000,
       });
     }
@@ -186,19 +173,20 @@ const useTopic = ({ initialGet } = {}) => {
   }, [initialGet]);
 
   return {
-    topics: data,
-    isTopicLoading: loading,
-    isModifiedTopicLoading: isModifiedLoading,
-    refreshTopic: handleGetTopic,
-    createTopic,
-    updateTopic,
-    deleteTopic,
-    registerTopic,
-    unRegisterTopic,
-    proposalTopic,
-    approveTopic,
-    unApproveTopic,
+    theses: data,
+    thesisDetail: dataDetail,
+    isThesisLoading: loading,
+    isModifiedThesisLoading: isModifiedLoading,
+    refreshThesis: handleGetThesisList,
+    getThesisDetail: handleGetThesisDetail,
+    createThesis,
+    updateThesis,
+    approveThesis,
+    deleteThesis,
+    createFinishThesis,
+    assignReviewTeacher,
+    updateCouncil,
   };
 };
 
-export default useTopic;
+export default useThesis;

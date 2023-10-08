@@ -3,25 +3,25 @@ import React, { useCallback, useEffect } from "react";
 
 import usePagination from "hooks/usePagination";
 import useModal from "hooks/useModal";
-import { modifiedDocumentValidation } from "./constants";
-import useDocument from "hooks/useDocument";
+import { modifiedOutlineValidation } from "./constants";
+import useOutline from "hooks/useOutline";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
 
-const DocumentPage = () => {
+const OutlinePage = () => {
   const { page, setPage } = usePagination();
   const {
-    documents,
-    isDocumentLoading,
-    createDocument,
-    updateDocument,
-    refreshDocument,
-    deleteDocument,
-    isModifiedDocumentLoading,
-  } = useDocument();
+    outlines,
+    isOutlineLoading,
+    createOutline,
+    updateOutline,
+    refreshOutline,
+    deleteOutline,
+    isModifiedOutlineLoading,
+  } = useOutline();
   const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
@@ -29,8 +29,10 @@ const DocumentPage = () => {
   const { open: openRemove, Dialog: DialogRemove } = useModal({
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
-      await deleteDocument(id);
-      refreshDocument();
+      await deleteOutline(id);
+      handleGetOutline();
+
+      return true;
     },
   });
 
@@ -42,11 +44,11 @@ const DocumentPage = () => {
     },
     {
       columnId: "code",
-      label: "Mã tài liệu",
+      label: "Mã đề cương",
     },
     {
       columnId: "name",
-      label: "Tên tài liệu",
+      label: "Tên đề cương",
     },
     {
       columnId: "action",
@@ -58,7 +60,7 @@ const DocumentPage = () => {
       type: "input",
       name: "name",
       properties: {
-        label: "Tên tài liệu",
+        label: "Tên đề cương",
         minWidthLabel: "150px",
       },
     },
@@ -66,35 +68,39 @@ const DocumentPage = () => {
       type: "input",
       name: "code",
       properties: {
-        label: "Mã tài liệu",
+        label: "Mã đề cương",
         minWidthLabel: "150px",
       },
     },
   ];
 
-  const handleGetDocument = useCallback(() => {
-    refreshDocument({
-      page,
-    });
-  }, [page, refreshDocument]);
+  const handleGetOutline = useCallback(
+    (keyword) => {
+      refreshOutline({
+        page,
+        keyword,
+      });
+    },
+    [page, refreshOutline]
+  );
 
-  const handleModifiedDocument = useCallback(
+  const handleModifiedOutline = useCallback(
     async (values) => {
       if (values?.id) {
-        await updateDocument(values?.id, values);
+        await updateOutline(values?.id, values);
       } else {
-        await createDocument(values);
+        await createOutline(values);
       }
 
-      handleGetDocument();
+      handleGetOutline();
 
       return true;
     },
-    [createDocument, handleGetDocument, updateDocument]
+    [createOutline, handleGetOutline, updateOutline]
   );
 
   useEffect(() => {
-    handleGetDocument();
+    handleGetOutline();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -103,50 +109,45 @@ const DocumentPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên tài liệu, mã tài liệu"
+            placeholder="Tìm kiếm theo tên tên đề cương, mã đề cương"
             onCreate={() =>
               open({
-                title: "Thêm mới tài liệu",
+                title: "Thêm mới đề cương",
               })
             }
-            onSearch={(keyword) =>
-              refreshDocument({
-                page,
-                keyword,
-              })
-            }
+            onSearch={(keyword) => handleGetOutline(keyword)}
           />
         </Box>
         <Table
-          loading={isDocumentLoading}
+          loading={isOutlineLoading}
           columnData={columnData}
-          tableData={documents?.results}
-          totalPage={documents?.total}
+          tableData={outlines?.results}
+          totalPage={outlines?.total}
           page={page}
           setPage={setPage}
           onEdit={(data) =>
             open({
-              title: "Chỉnh sửa tài liệu",
+              title: "Chỉnh sửa đề cương",
               data,
             })
           }
           onRemove={(id) =>
             openRemove({
-              title: "Xác nhận xoá tài liệu",
+              title: "Xác nhận xoá đề cương",
               data: id,
             })
           }
         />
       </Stack>
       <Dialog
-        onSave={handleModifiedDocument}
+        onSave={handleModifiedOutline}
         formLayoutData={formLayoutData}
-        formValidationSchema={modifiedDocumentValidation}
-        isLoading={isModifiedDocumentLoading}
+        formValidationSchema={modifiedOutlineValidation}
+        isLoading={isModifiedOutlineLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá tài liệu này không?" />
+      <DialogRemove description="Bạn có chắc chắn muốn xoá đề cương này không?" />
     </>
   );
 };
 
-export default DocumentPage;
+export default OutlinePage;

@@ -8,13 +8,13 @@ const TableBody = ({ tableData, columnData, onEdit, onRemove }) => (
     {tableData.map((data, index) => (
       <React.Fragment key={index}>
         <Tr>
-          {columnData.map((column) => {
+          {columnData.map((column, idx) => {
             const customCell = column?.render;
 
             if (column?.columnId === "action") {
               return (
                 <Td
-                  key={column?.columnId}
+                  key={`${column?.columnId}-${idx}`}
                   borderColor="background.grey.600"
                   py={2}>
                   {customCell ? (
@@ -31,7 +31,7 @@ const TableBody = ({ tableData, columnData, onEdit, onRemove }) => (
 
             return (
               <Td
-                key={column?.columnId}
+                key={`${column?.columnId}-${idx}`}
                 borderColor="background.grey.600"
                 whiteSpace="nowrap"
                 textTransform="capitalize"

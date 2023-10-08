@@ -4,6 +4,7 @@ import { Button, Stack } from "@chakra-ui/react";
 
 import InputField from "components/common/InputField";
 import SelectField from "../SelectField";
+import DatePicker from "../DatePicker";
 
 const ModifiedFormModal = ({
   onOriginalClose,
@@ -66,6 +67,8 @@ const ModifiedFormModal = ({
               isRequired
               w="full"
               minWidthLabel={form?.properties?.minWidthLabel}
+              type={form?.properties?.type}
+              readOnly={form?.properties?.readOnly}
             />
           );
 
@@ -86,6 +89,7 @@ const ModifiedFormModal = ({
               w="full"
               minWidthLabel={form?.properties?.minWidthLabel}
               usingTextArea
+              readOnly={form?.properties?.readOnly}
             />
           );
 
@@ -101,10 +105,10 @@ const ModifiedFormModal = ({
               value={values?.[form?.name]}
               touched={touched?.[form?.name]}
               error={errors?.[form?.name]}
-              onChange={(event) =>
+              onChange={(value) =>
                 setValues({
                   ...values,
-                  [form?.name]: event.target.value,
+                  [form?.name]: form?.properties?.isMulti ? value : value?.id,
                 })
               }
               onBlur={handleBlur}
@@ -113,9 +117,27 @@ const ModifiedFormModal = ({
               w="full"
               minWidthLabel={form?.properties?.minWidthLabel}
               direction="row"
+              isMulti={form?.properties?.isMulti}
             />
           );
 
+          break;
+        }
+
+        case "datePicker": {
+          component = (
+            <DatePicker
+              isRequired
+              label={form?.properties?.label}
+              name={form?.name}
+              value={values?.[form?.name]}
+              touched={touched?.[form?.name]}
+              error={errors?.[form?.name]}
+              setFieldValue={setValues}
+              onBlur={handleBlur}
+              minWidthLabel={form?.properties?.minWidthLabel}
+            />
+          );
           break;
         }
 

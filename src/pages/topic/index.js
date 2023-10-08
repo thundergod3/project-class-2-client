@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import usePagination from "hooks/usePagination";
 import useModal from "hooks/useModal";
 import { modifiedTopicValidation } from "./constants";
+import useFaculty from "hooks/useFaculty";
 import useMajor from "hooks/useMajor";
 import useTopic from "hooks/useTopic";
 import useAuthenticated from "hooks/useAuthenticated";
@@ -13,16 +14,19 @@ import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
 
-const ProposalTopicPage = () => {
-  const { userData, isStudent } = useAuthenticated();
+const TopicPage = () => {
+  const { isTeacher } = useAuthenticated();
   const { page, setPage } = usePagination();
+  const { faculties } = useFaculty({
+    initialGet: true,
+  });
   const { majors } = useMajor({
     initialGet: true,
   });
   const {
     topics,
     isTopicLoading,
-    proposalTopic,
+    createTopic,
     updateTopic,
     refreshTopic,
     deleteTopic,
@@ -36,19 +40,25 @@ const ProposalTopicPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteTopic(id);
-      refreshTopic({
-        page: 1,
-        status: "draft",
-        userId: isStudent ? userData?.id : undefined,
-      });
+      handleGetTopic();
+
+      return true;
     },
   });
 
+  const facultyOptionList = useMemo(
+    () =>
+      faculties?.results?.map((record) => ({
+        value: record?.id,
+        label: record?.name,
+      })),
+    [faculties?.results]
+  );
   const majorOptionList = useMemo(
     () =>
       majors?.results?.map((record) => ({
         value: record?.id,
-        label: record?.code,
+        label: record?.name,
       })),
     [majors?.results]
   );
@@ -61,31 +71,32 @@ const ProposalTopicPage = () => {
         render: (_, data, index) => index + 1,
       },
       {
+        columnId: "code",
+        label: "Mã đề tài",
+      },
+      {
         columnId: "name",
         label: "Tên đề tài",
       },
       {
         columnId: "major",
-        label: "Mã ngành",
-        render: (data) => data?.code,
+        label: "Tên ngành học",
+        render: (data) => data?.name,
       },
       {
-        hide: !isStudent,
+        columnId: "faculty",
+        label: "Khoa",
+        render: (data) => data?.name,
+      },
+      {
+        hide: !isTeacher,
         columnId: "action",
         label: "Thao tác",
       },
     ],
-    [isStudent]
+    [isTeacher]
   );
   const formLayoutData = [
-    {
-      type: "input",
-      name: "code",
-      properties: {
-        label: "Mã đề tài",
-        minWidthLabel: "150px",
-      },
-    },
     {
       type: "input",
       name: "name",
@@ -95,54 +106,70 @@ const ProposalTopicPage = () => {
       },
     },
     {
+      type: "input",
+      name: "code",
+      properties: {
+        label: "Mã đề tài",
+        minWidthLabel: "150px",
+      },
+    },
+    {
+      type: "dropdown",
+      name: "facultyId",
+      options: facultyOptionList,
+      properties: {
+        label: "Khoa",
+        placeholder: "Chọn khoa",
+        minWidthLabel: "150px",
+      },
+    },
+    {
       type: "dropdown",
       name: "majorId",
       options: majorOptionList,
       properties: {
         label: "Ngành",
-        minWidthLabel: "150px",
         placeholder: "Chọn ngành",
+        minWidthLabel: "150px",
       },
     },
     {
       type: "textarea",
-      name: "reason",
+      name: "requirement",
       properties: {
-        label: "Lý do",
+        label: "Yêu cầu",
         minWidthLabel: "150px",
       },
     },
   ];
 
-  const handleGetProposalTopic = useCallback(() => {
-    refreshTopic({
-      page,
-      status: "draft",
-      userId: isStudent ? userData?.id : undefined,
-    });
-  }, [isStudent, page, refreshTopic, userData?.id]);
+  const handleGetTopic = useCallback(
+    (keyword) => {
+      refreshTopic({
+        page,
+        keyword,
+      });
+    },
+    [page, refreshTopic]
+  );
 
   const handleModifiedTopic = useCallback(
     async (values) => {
       if (values?.id) {
         await updateTopic(values?.id, values);
       } else {
-        const result = await proposalTopic(values);
-
-        if (!result) {
-          return result;
-        }
+        await createTopic(values);
       }
 
-      handleGetProposalTopic();
+      handleGetTopic();
 
       return true;
     },
-    [proposalTopic, handleGetProposalTopic, updateTopic]
+    [createTopic, handleGetTopic, updateTopic]
   );
 
   useEffect(() => {
-    handleGetProposalTopic();
+    handleGetTopic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -151,21 +178,14 @@ const ProposalTopicPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên đề tài, mã đề tài"
+            placeholder="Tìm kiếm theo tên tên đề tài, mã đề tài"
             onCreate={() =>
               open({
-                title: "Đề xuất đề tài",
+                title: "Thêm mới đề tài",
               })
             }
-            onSearch={(keyword) =>
-              refreshTopic({
-                page,
-                status: "draft",
-                keyword,
-                userId: isStudent ? userData?.id : undefined,
-              })
-            }
-            hideCreateBtn={!isStudent}
+            onSearch={(keyword) => handleGetTopic(keyword)}
+            hideCreateBtn={!isTeacher}
           />
         </Box>
         <Table
@@ -200,4 +220,4 @@ const ProposalTopicPage = () => {
   );
 };
 
-export default ProposalTopicPage;
+export default TopicPage;

@@ -32,6 +32,8 @@ const ChooseTopicPage = () => {
         await registerTopic(id);
         getUserData();
         refreshTopic();
+
+        return true;
       },
     }
   );
@@ -42,6 +44,8 @@ const ChooseTopicPage = () => {
         await unRegisterTopic(id);
         getUserData();
         refreshTopic();
+
+        return true;
       },
     });
 
@@ -134,11 +138,15 @@ const ChooseTopicPage = () => {
     },
   ];
 
-  const handleGetStudent = useCallback(() => {
-    refreshTopic({
-      page,
-    });
-  }, [page, refreshTopic]);
+  const handleGetStudent = useCallback(
+    (keyword) => {
+      refreshTopic({
+        page,
+        keyword,
+      });
+    },
+    [page, refreshTopic]
+  );
 
   useEffect(() => {
     handleGetStudent();
@@ -151,12 +159,7 @@ const ChooseTopicPage = () => {
         <Box padding="0px 24px">
           <TableFilter
             placeholder="Tìm kiếm theo tên tên đề tài, mã đề tài"
-            onSearch={(keyword) =>
-              refreshTopic({
-                page,
-                keyword,
-              })
-            }
+            onSearch={(keyword) => handleGetStudent(keyword)}
             hideCreateBtn
           />
         </Box>
