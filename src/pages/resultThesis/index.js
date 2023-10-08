@@ -97,7 +97,7 @@ const ResultThesisPage = () => {
     (keyword) => {
       refreshThesis({
         page,
-        status: "approve",
+        status: "finish",
         keyword,
       });
     },
@@ -107,7 +107,11 @@ const ResultThesisPage = () => {
   const handleModifiedThesis = useCallback(
     async (values) => {
       if (values?.id) {
-        await updateThesis(values?.id, values);
+        await updateThesis(
+          values?.id,
+          values,
+          "Chỉnh sửa kết quả bảo vệ KLTN thành công"
+        );
       } else {
         await createFinishThesis(values);
       }

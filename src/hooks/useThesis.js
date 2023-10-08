@@ -66,13 +66,13 @@ const useThesis = ({ initialGet } = {}) => {
   );
 
   const updateThesis = useCallback(
-    async (id, body) => {
+    async (id, body, text) => {
       setIsModifiedLoading(true);
 
       try {
         await thesesService.updateThesis(id, body);
 
-        openNotificationSuccess("Chỉnh sửa bảo vệ KLTN thành công");
+        openNotificationSuccess(text || "Chỉnh sửa bảo vệ KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
