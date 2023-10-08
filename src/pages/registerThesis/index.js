@@ -81,6 +81,14 @@ const RegisterThesisPage = () => {
             w="full"
             minWidthLabel="100px"
           />
+          <InputField
+            label="Mã sinh viên"
+            value={userData?.code}
+            isRequired
+            w="full"
+            minWidthLabel="100px"
+            readOnly
+          />
           <DatePicker
             isRequired
             name="dob"
@@ -91,6 +99,14 @@ const RegisterThesisPage = () => {
             setFieldValue={setValues}
             onBlur={handleBlur}
             minWidthLabel="100px"
+          />
+          <InputField
+            label="Mã ngành học"
+            value={userData?.faculty?.code}
+            isRequired
+            w="full"
+            minWidthLabel="100px"
+            readOnly
           />
           <Button
             isLoading={isModifiedThesisLoading}
