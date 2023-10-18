@@ -103,7 +103,7 @@ const ModulePage = () => {
       type: "input",
       name: "code",
       properties: {
-        label: "Tên học phần",
+        label: "Mã học phần",
         minWidthLabel: "150px",
       },
     },

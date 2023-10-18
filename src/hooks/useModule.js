@@ -37,7 +37,7 @@ const useModule = ({ initialGet } = {}) => {
       try {
         await modulesService.createModule(body);
 
-        openNotificationSuccess("Thêm mới Giáo viên thành công");
+        openNotificationSuccess("Thêm mới Học phần KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -56,7 +56,7 @@ const useModule = ({ initialGet } = {}) => {
 
         await modulesService.updateModule(id, body);
 
-        openNotificationSuccess("Chỉnh sửa Giáo viên thành công");
+        openNotificationSuccess("Chỉnh sửa Học phần KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -73,7 +73,7 @@ const useModule = ({ initialGet } = {}) => {
       try {
         await modulesService.deleteModule(id);
 
-        openNotificationSuccess("Xoá Giáo viên thành công");
+        openNotificationSuccess("Xoá Học phần KLTN thành công");
       } catch (error) {
         openNotificationError(error?.message || "Something error");
       }

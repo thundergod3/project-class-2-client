@@ -37,7 +37,7 @@ const useMajor = ({ initialGet } = {}) => {
       try {
         await majorsService.createMajor(body);
 
-        openNotificationSuccess("Thêm mới Ngành thành công");
+        openNotificationSuccess("Thêm mới Ngành học thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -56,7 +56,7 @@ const useMajor = ({ initialGet } = {}) => {
 
         await majorsService.updateMajor(id, body);
 
-        openNotificationSuccess("Chỉnh sửa Ngành thành công");
+        openNotificationSuccess("Chỉnh sửa Ngành học thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -73,7 +73,7 @@ const useMajor = ({ initialGet } = {}) => {
       try {
         await majorsService.deleteMajor(id);
 
-        openNotificationSuccess("Xoá Ngành thành công");
+        openNotificationSuccess("Xoá Ngành học thành công");
       } catch (error) {
         openNotificationError(error?.message || "Something error");
       }

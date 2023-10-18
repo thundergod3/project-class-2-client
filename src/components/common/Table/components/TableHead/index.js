@@ -11,11 +11,11 @@ const TableHead = ({ columnData }) => (
           whiteSpace="nowrap"
           scope="col"
           key={column?.columnId + index}
-          textTransform="capitalize"
+          textTransform="none"
           px={2}
           fontSize="18px"
           textAlign="center">
-          <Text color={column.textColor || "text.third"}>{column?.label}</Text>
+          <Text>{column?.label}</Text>
         </Th>
       ))}
     </Tr>

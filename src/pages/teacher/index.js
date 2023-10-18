@@ -77,7 +77,7 @@ const TeacherPage = () => {
     },
     {
       columnId: "major",
-      label: "Tên ngành học",
+      label: "Ngành học",
       render: (data) => data?.name,
     },
     {

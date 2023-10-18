@@ -17,7 +17,7 @@ const Table = ({
   setPage,
   sizePage = 10,
   renderEmptyData,
-  textEmpty = "No data found",
+  textEmpty = "Không có dữ liệu",
   onEdit,
   onRemove,
 }) => {
