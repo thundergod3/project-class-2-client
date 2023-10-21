@@ -18,4 +18,6 @@ export const Routes = {
   assignReviewTeachers: "/assign-review-teachers",
   councils: "/councils",
   reportTheses: "/report-theses",
+  reportCompleteTheses: "/report-complete-theses",
+  reportNumberStudentOfTeacher: "/report-number-student-of-teacher",
 };

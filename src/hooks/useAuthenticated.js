@@ -33,6 +33,7 @@ const useAuthenticated = () => {
         }
       } catch (error) {
         console.log("error", error);
+
         openNotificationError(error?.message || "Something error");
       }
     },
@@ -50,11 +51,11 @@ const useAuthenticated = () => {
 
       dispatch(setUserData(data));
     } catch (error) {
+      console.log(error);
+
       if (error?.response?.status === 401) {
         logout();
       }
-
-      console.log(error);
     }
   }, [dispatch, logout]);
 

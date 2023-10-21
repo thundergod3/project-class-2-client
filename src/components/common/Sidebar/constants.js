@@ -75,8 +75,12 @@ export const navLinksAdmin = [
     title: "Báo cáo thống kê",
     items: [
       {
-        route: "",
-        title: "Báo cáo",
+        route: Routes.reportCompleteTheses,
+        title: "Báo cáo tỉ lệ hoàn thành",
+      },
+      {
+        route: Routes.reportNumberStudentOfTeacher,
+        title: "Báo cáo số lượng sinh viên hướng dẫn của từng giảng viên",
       },
     ],
   },

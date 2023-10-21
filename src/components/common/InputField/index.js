@@ -38,7 +38,7 @@ const InputField = ({
   getCardNumberInputProps,
   isRequired,
   minWidthLabel,
-  hidden,
+  hide,
   ...rest
 }) => {
   const isError = error && touched;
@@ -51,7 +51,7 @@ const InputField = ({
     }
   };
 
-  return hidden ? (
+  return hide ? (
     <Input
       name={name}
       type={type}
@@ -70,7 +70,7 @@ const InputField = ({
       _hover={{
         borderColor: "black",
       }}
-      hidden={hidden}
+      hidden={hide}
       {...rest}
     />
   ) : (

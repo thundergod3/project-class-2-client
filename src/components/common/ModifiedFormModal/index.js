@@ -38,7 +38,7 @@ const ModifiedFormModal = ({
     setValues,
   } = useFormik({
     enableReinitialize: true,
-    initialValues: initialValues,
+    initialValues,
     onSubmit: async (values) => {
       const result = await onSave?.(values);
 
@@ -162,7 +162,7 @@ const ModifiedFormModal = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputField hidden name="id" />
+      <InputField hide name="id" />
       <Stack spacing="63px">
         <Stack spacing="45px">{formLayoutData?.map(renderForm)}</Stack>
         <Stack direction="row" spacing="8px" justifyContent="flex-end">

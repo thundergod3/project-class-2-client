@@ -36,6 +36,12 @@ const AssignReviewTeacherPage = lazy(() =>
 );
 const CouncilPage = lazy(() => import("./pages/council"));
 const ReportThesisPage = lazy(() => import("./pages/reportThesis"));
+const ReportCompleteThesisPage = lazy(() =>
+  import("./pages/reportCompleteThesis")
+);
+const ReportNumberStudentOfTeacherPage = lazy(() =>
+  import("./pages/reportNumberStudentOfTeacher")
+);
 
 const App = () => {
   const { getUserData } = useAuthenticated();
@@ -52,7 +58,7 @@ const App = () => {
 
       <Switch>
         {/* ROUTES */}
-        {/* PRIVATE */}
+        {/* COMMON */}
         <PublicRoute
           exact
           path={Routes.login}
@@ -60,7 +66,7 @@ const App = () => {
           layout={AuthenticationLayout}
         />
 
-        {/* COMMON */}
+        {/* PRIVATE */}
         <PrivateRoute
           exact
           path={Routes.home}
@@ -185,6 +191,20 @@ const App = () => {
           component={ReportThesisPage}
           layout={MainLayout}
           title="Quản lý biên bản KLTN"
+        />
+        <PrivateRoute
+          exact
+          path={Routes.reportCompleteTheses}
+          component={ReportCompleteThesisPage}
+          layout={MainLayout}
+          title="Báo cáo tỉ lệ hoàn thành KLTN"
+        />
+        <PrivateRoute
+          exact
+          path={Routes.reportNumberStudentOfTeacher}
+          component={ReportNumberStudentOfTeacherPage}
+          layout={MainLayout}
+          title="Báo cáo số lượng sinh viên hướng dẫn của từng giảng viên"
         />
       </Switch>
     </React.Suspense>
