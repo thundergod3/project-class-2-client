@@ -68,6 +68,9 @@ const Endpoints = {
   createReportThesis: "/report-theses/create",
   updateReportThesis: "/report-theses/update/:id",
   deleteReportThesis: "/report-theses/delete/:id",
+
+  // UTILS
+  uploadFile: "/upload",
 };
 
 export default Endpoints;

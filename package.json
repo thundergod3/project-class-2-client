@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.3",
     "chakra-react-select": "^4.7.3",
+    "compress.js": "^1.2.2",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.10",
     "env-cmd": "^10.1.0",

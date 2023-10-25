@@ -11,6 +11,7 @@ import useTeacher from "hooks/useTeacher";
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
+import ConfirmationModal from "components/common/ConfirmationModal";
 
 const CouncilPage = () => {
   const { page, setPage } = usePagination();
@@ -27,6 +28,17 @@ const CouncilPage = () => {
   const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
+  });
+  const { open: openRemove, Dialog: DialogRemove } = useModal({
+    modalBody: ConfirmationModal,
+    handleSave: async (id) => {
+      await updateCouncil(id, {
+        council: undefined,
+      });
+      handleGetThesis();
+
+      return true;
+    },
   });
 
   const teacherOptionList = useMemo(
@@ -185,6 +197,12 @@ const CouncilPage = () => {
               },
             })
           }
+          onRemove={(id) =>
+            openRemove({
+              title: "Xác nhận xoá hội đồng bảo vệ",
+              data: id,
+            })
+          }
         />
       </Stack>
       <Dialog
@@ -193,6 +211,7 @@ const CouncilPage = () => {
         formValidationSchema={modifiedMajorValidation}
         isLoading={isModifiedThesisLoading}
       />
+      <DialogRemove description="Bạn có chắc chắn muốn xoá hội đồng này không?" />
     </>
   );
 };

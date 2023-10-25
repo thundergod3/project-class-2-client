@@ -40,6 +40,7 @@ const useTeacher = ({ initialGet } = {}) => {
       try {
         await usersService.createUser({
           ...body,
+          username: body?.code,
           role: "teacher",
         });
 

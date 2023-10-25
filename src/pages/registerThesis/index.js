@@ -8,6 +8,7 @@ import { modifiedThesisValidation } from "./constants";
 import InputField from "components/common/InputField";
 import DatePicker from "components/common/DatePicker";
 import useThesis from "hooks/useThesis";
+import FileUpload from "components/common/FileUpload";
 
 const RegisterThesisPage = () => {
   const { userData, getUserData } = useAuthenticated();
@@ -47,7 +48,10 @@ const RegisterThesisPage = () => {
       if (userThesisId) {
         await updateThesis(userThesisId, body);
       } else {
-        await createThesis(body);
+        await createThesis({
+          ...body,
+          status: "approve",
+        });
       }
 
       await getUserData();
@@ -107,6 +111,14 @@ const RegisterThesisPage = () => {
             w="full"
             minWidthLabel="100px"
             readOnly
+          />
+          <FileUpload
+            name="file"
+            label="File đề cương"
+            isRequired
+            w="full"
+            minWidthLabel="100px"
+            setFieldValue={setValues}
           />
           <Button
             isLoading={isModifiedThesisLoading}

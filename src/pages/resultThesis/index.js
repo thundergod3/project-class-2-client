@@ -10,6 +10,7 @@ import Table from "components/common/Table";
 import useThesis from "hooks/useThesis";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
+import FileName from "components/common/FileName";
 
 const ResultThesisPage = () => {
   const { page, setPage } = usePagination();
@@ -29,7 +30,7 @@ const ResultThesisPage = () => {
   const { open: openRemove, Dialog: DialogRemove } = useModal({
     modalBody: ConfirmationModal,
     handleSave: async (values) => {
-      await deleteThesis(values?.id, values?.userId);
+      await deleteThesis(values?.id, { userId: values?.userId });
       handleGetThesis();
 
       return true;
@@ -45,7 +46,9 @@ const ResultThesisPage = () => {
     {
       columnId: "user",
       label: "Mã sinh viên",
-      render: (data) => data?.code,
+      render: (value, data) => (
+        <FileName name={value?.code} link={data?.file} />
+      ),
     },
     {
       columnId: "user",
@@ -69,6 +72,14 @@ const ResultThesisPage = () => {
       name: "userCode",
       properties: {
         label: "Mã sinh viên",
+        minWidthLabel: "120px",
+      },
+    },
+    {
+      type: "upload",
+      name: "file",
+      properties: {
+        label: "File tài liệu",
         minWidthLabel: "120px",
       },
     },
@@ -158,10 +169,13 @@ const ResultThesisPage = () => {
               },
             })
           }
-          onRemove={(id) =>
+          onRemove={(id, data) =>
             openRemove({
               title: "Xác nhận xoá kết quả bảo vệ KLTN",
-              data: id,
+              data: {
+                id,
+                userId: data?.userId,
+              },
             })
           }
         />

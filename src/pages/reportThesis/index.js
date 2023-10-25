@@ -10,6 +10,7 @@ import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
 import useReportThesis from "hooks/useReportThesis";
+import FileName from "components/common/FileName";
 
 const ReportThesisPage = () => {
   const { page, setPage } = usePagination();
@@ -45,6 +46,7 @@ const ReportThesisPage = () => {
     {
       columnId: "name",
       label: "Tên đề tài",
+      render: (value, data) => <FileName name={value} link={data?.file} />,
     },
     {
       columnId: "user",
@@ -75,6 +77,14 @@ const ReportThesisPage = () => {
       name: "userCode",
       properties: {
         label: "Mã sinh viên",
+        minWidthLabel: "120px",
+      },
+    },
+    {
+      type: "upload",
+      name: "file",
+      properties: {
+        label: "File tài liệu",
         minWidthLabel: "120px",
       },
     },

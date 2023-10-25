@@ -10,6 +10,7 @@ import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
+import FileName from "components/common/FileName";
 
 const DocumentPage = () => {
   const { page, setPage } = usePagination();
@@ -49,6 +50,7 @@ const DocumentPage = () => {
     {
       columnId: "name",
       label: "Tên tài liệu",
+      render: (value, data) => <FileName name={value} link={data?.file} />,
     },
     {
       columnId: "action",
@@ -69,6 +71,14 @@ const DocumentPage = () => {
       name: "code",
       properties: {
         label: "Mã tài liệu",
+        minWidthLabel: "150px",
+      },
+    },
+    {
+      type: "upload",
+      name: "file",
+      properties: {
+        label: "File tài liệu",
         minWidthLabel: "150px",
       },
     },

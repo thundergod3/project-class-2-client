@@ -38,7 +38,11 @@ const useStudent = ({ initialGet } = {}) => {
       setIsModifiedLoading(true);
 
       try {
-        await usersService.createUser({ ...body, role: "student" });
+        await usersService.createUser({
+          ...body,
+          username: body?.code,
+          role: "student",
+        });
 
         openNotificationSuccess("Thêm mới Sinh viên thành công");
         setIsModifiedLoading(false);

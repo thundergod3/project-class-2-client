@@ -22,7 +22,7 @@ const TableBody = ({ tableData, columnData, onEdit, onRemove }) => (
                   ) : (
                     <TableAction
                       onEdit={() => onEdit(data)}
-                      onRemove={() => onRemove(data?.id)}
+                      onRemove={() => onRemove(data?.id, data)}
                     />
                   )}
                 </Td>

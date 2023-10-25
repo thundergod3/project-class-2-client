@@ -10,6 +10,7 @@ import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
+import FileName from "components/common/FileName";
 
 const OutlinePage = () => {
   const { page, setPage } = usePagination();
@@ -49,6 +50,7 @@ const OutlinePage = () => {
     {
       columnId: "name",
       label: "Tên đề cương",
+      render: (value, data) => <FileName name={value} link={data?.file} />,
     },
     {
       columnId: "action",
@@ -69,6 +71,14 @@ const OutlinePage = () => {
       name: "code",
       properties: {
         label: "Mã đề cương",
+        minWidthLabel: "150px",
+      },
+    },
+    {
+      type: "upload",
+      name: "file",
+      properties: {
+        label: "File tài liệu",
         minWidthLabel: "150px",
       },
     },

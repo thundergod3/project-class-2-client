@@ -5,6 +5,7 @@ import { Button, Stack } from "@chakra-ui/react";
 import InputField from "components/common/InputField";
 import SelectField from "../SelectField";
 import DatePicker from "../DatePicker";
+import FileUpload from "../FileUpload";
 
 const ModifiedFormModal = ({
   onOriginalClose,
@@ -138,7 +139,7 @@ const ModifiedFormModal = ({
               isRequired
               label={form?.properties?.label}
               name={form?.name}
-              value={values?.[form?.name]}
+              value={values?.[form?.name] || new Date()}
               touched={touched?.[form?.name]}
               error={errors?.[form?.name]}
               setFieldValue={setValues}
@@ -146,6 +147,21 @@ const ModifiedFormModal = ({
               minWidthLabel={form?.properties?.minWidthLabel}
             />
           );
+          break;
+        }
+
+        case "upload": {
+          component = (
+            <FileUpload
+              label={form?.properties?.label}
+              name={form?.name}
+              value={values?.[form?.name]}
+              setFieldValue={setValues}
+              minWidthLabel={form?.properties?.minWidthLabel}
+              isRequired={form?.required}
+            />
+          );
+
           break;
         }
 
@@ -163,6 +179,7 @@ const ModifiedFormModal = ({
   return (
     <form onSubmit={handleSubmit}>
       <InputField hide name="id" />
+      <InputField hide name="userId" />
       <Stack spacing="63px">
         <Stack spacing="45px">{formLayoutData?.map(renderForm)}</Stack>
         <Stack direction="row" spacing="8px" justifyContent="flex-end">
