@@ -155,7 +155,10 @@ const OutlinePage = () => {
         formValidationSchema={modifiedOutlineValidation}
         isLoading={isModifiedOutlineLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá đề cương này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá đề cương này không?"
+        isLoading={isModifiedOutlineLoading}
+      />
     </>
   );
 };

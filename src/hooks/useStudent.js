@@ -81,8 +81,10 @@ const useStudent = ({ initialGet } = {}) => {
         await usersService.deleteUser(id);
 
         openNotificationSuccess("Xoá Sinh viên thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]

@@ -155,7 +155,10 @@ const DocumentPage = () => {
         formValidationSchema={modifiedDocumentValidation}
         isLoading={isModifiedDocumentLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá tài liệu này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá tài liệu này không?"
+        isLoading={isModifiedDocumentLoading}
+      />
     </>
   );
 };

@@ -186,7 +186,10 @@ const ResultThesisPage = () => {
         formValidationSchema={modifiedThesisValidation}
         isLoading={isModifiedThesisLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá kết quả bảo vệ KLTN này?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá kết quả bảo vệ KLTN này?"
+        isLoading={isModifiedThesisLoading}
+      />
     </>
   );
 };

@@ -200,7 +200,10 @@ const TeacherPage = () => {
         formValidationSchema={modifiedTeacherValidation}
         isLoading={isModifiedTeacherLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá Giáo viên này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá Giáo viên này không?"
+        isLoading={isModifiedTeacherLoading}
+      />
     </>
   );
 };

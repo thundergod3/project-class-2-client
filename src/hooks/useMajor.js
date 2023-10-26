@@ -74,8 +74,10 @@ const useMajor = ({ initialGet } = {}) => {
         await majorsService.deleteMajor(id);
 
         openNotificationSuccess("Xoá Ngành học thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]

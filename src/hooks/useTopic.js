@@ -152,8 +152,10 @@ const useTopic = ({ initialGet } = {}) => {
         await topicsService.registerTopic(id, body);
 
         openNotificationSuccess("Phê duyệt Đề tài hướng dẫn KLTN thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]
@@ -169,8 +171,10 @@ const useTopic = ({ initialGet } = {}) => {
         openNotificationSuccess(
           "không phê duyệt Đề tài hướng dẫn KLTN thành công"
         );
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]

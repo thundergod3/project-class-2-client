@@ -164,7 +164,10 @@ const ReportThesisPage = () => {
         formValidationSchema={modifiedReportThesisValidation}
         isLoading={isModifiedReportThesisLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá đề tài này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá đề tài này không?"
+        isLoading={isModifiedReportThesisLoading}
+      />
     </>
   );
 };

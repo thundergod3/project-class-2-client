@@ -74,8 +74,10 @@ const useOutline = ({ initialGet } = {}) => {
         await outlinesService.deleteOutline(id);
 
         openNotificationSuccess("Xoá Sinh viên thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]

@@ -74,8 +74,10 @@ const useReportThesis = ({ initialGet } = {}) => {
         await reportThesesService.deleteReportThesis(id);
 
         openNotificationSuccess("Xoá biên bản KLTN thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]

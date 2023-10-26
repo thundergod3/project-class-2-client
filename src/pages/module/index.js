@@ -200,7 +200,10 @@ const ModulePage = () => {
         formValidationSchema={modifiedModuleValidation}
         isLoading={isModifiedModuleLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá Học phần này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá Học phần này không?"
+        isLoading={isModifiedModuleLoading}
+      />
     </>
   );
 };

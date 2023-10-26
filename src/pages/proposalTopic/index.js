@@ -190,7 +190,10 @@ const ProposalTopicPage = () => {
         formValidationSchema={modifiedTopicValidation}
         isLoading={isModifiedTopicLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá đề tài này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá đề tài này không?"
+        isLoading={isModifiedTopicLoading}
+      />
     </>
   );
 };

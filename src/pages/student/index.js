@@ -200,7 +200,10 @@ const StudentPage = () => {
         formValidationSchema={modifiedStudentValidation}
         isLoading={isModifiedStudentLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá sinh viên này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá sinh viên này không?"
+        isLoading={isModifiedStudentLoading}
+      />
     </>
   );
 };

@@ -143,7 +143,10 @@ const FacultyPage = () => {
         formValidationSchema={modifiedFacultyValidation}
         isLoading={isModifiedFacultyLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá Khoa này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá Khoa này không?"
+        isLoading={isModifiedFacultyLoading}
+      />
     </>
   );
 };

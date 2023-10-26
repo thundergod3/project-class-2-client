@@ -173,7 +173,10 @@ const MajorPage = () => {
         formValidationSchema={modifiedMajorValidation}
         isLoading={isModifiedMajorLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá Ngành này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá Ngành này không?"
+        isLoading={isModifiedMajorLoading}
+      />
     </>
   );
 };

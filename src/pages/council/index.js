@@ -211,7 +211,10 @@ const CouncilPage = () => {
         formValidationSchema={modifiedMajorValidation}
         isLoading={isModifiedThesisLoading}
       />
-      <DialogRemove description="Bạn có chắc chắn muốn xoá hội đồng này không?" />
+      <DialogRemove
+        description="Bạn có chắc chắn muốn xoá hội đồng này không?"
+        isLoading={isModifiedThesisLoading}
+      />
     </>
   );
 };
