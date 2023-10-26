@@ -93,14 +93,6 @@ const StudentPage = () => {
   const formLayoutData = [
     {
       type: "input",
-      name: "username",
-      properties: {
-        label: "Tên đăng nhập",
-        minWidthLabel: "150px",
-      },
-    },
-    {
-      type: "input",
       name: "name",
       properties: {
         label: "Tên sinh viên",
