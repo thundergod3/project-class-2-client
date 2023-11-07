@@ -52,6 +52,14 @@ export const navLinksAdmin = [
         route: Routes.resultTheses,
         title: "Quản lý kết quả KLTN",
       },
+      {
+        route: Routes.schoolYears,
+        title: "Quản lý năm học",
+      },
+      {
+        route: Routes.semesters,
+        title: "Quản lý kỳ học",
+      },
     ],
   },
   {

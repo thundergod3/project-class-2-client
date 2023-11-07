@@ -3,26 +3,25 @@ import React, { useCallback, useEffect } from "react";
 
 import usePagination from "hooks/usePagination";
 import useModal from "hooks/useModal";
-import { modifiedOutlineValidation } from "./constants";
-import useOutline from "hooks/useOutline";
+import { modifiedSchoolYearValidation } from "./constants";
+import useSchoolYear from "hooks/useSchoolYear";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import ModifiedFormModal from "components/common/ModifiedFormModal";
 import ConfirmationModal from "components/common/ConfirmationModal";
-import FileName from "components/common/FileName";
 
-const OutlinePage = () => {
+const SchoolYearPage = () => {
   const { page, setPage } = usePagination();
   const {
-    outlines,
-    isOutlineLoading,
-    createOutline,
-    updateOutline,
-    refreshOutline,
-    deleteOutline,
-    isModifiedOutlineLoading,
-  } = useOutline();
+    schoolYears,
+    isSchoolYearLoading,
+    createSchoolYear,
+    updateSchoolYear,
+    refreshSchoolYear,
+    deleteSchoolYear,
+    isModifiedSchoolYearLoading,
+  } = useSchoolYear();
   const { open, Dialog } = useModal({
     modalBody: ModifiedFormModal,
     usingFooter: false,
@@ -30,8 +29,8 @@ const OutlinePage = () => {
   const { open: openRemove, Dialog: DialogRemove } = useModal({
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
-      await deleteOutline(id);
-      handleGetOutline();
+      await deleteSchoolYear(id);
+      handleGetSchoolYear();
 
       return true;
     },
@@ -45,12 +44,11 @@ const OutlinePage = () => {
     },
     {
       columnId: "code",
-      label: "Mã đề cương",
+      label: "Mã năm học",
     },
     {
       columnId: "name",
-      label: "Tên đề cương",
-      render: (value, data) => <FileName name={value} link={data?.file} />,
+      label: "Tên năm học",
     },
     {
       columnId: "action",
@@ -62,7 +60,7 @@ const OutlinePage = () => {
       type: "input",
       name: "name",
       properties: {
-        label: "Tên đề cương",
+        label: "Tên năm học",
         minWidthLabel: "150px",
       },
     },
@@ -70,47 +68,39 @@ const OutlinePage = () => {
       type: "input",
       name: "code",
       properties: {
-        label: "Mã đề cương",
-        minWidthLabel: "150px",
-      },
-    },
-    {
-      type: "upload",
-      name: "file",
-      properties: {
-        label: "File tài liệu",
+        label: "Mã năm học",
         minWidthLabel: "150px",
       },
     },
   ];
 
-  const handleGetOutline = useCallback(
+  const handleGetSchoolYear = useCallback(
     (keyword) => {
-      refreshOutline({
+      refreshSchoolYear({
         page,
         keyword,
       });
     },
-    [page, refreshOutline]
+    [page, refreshSchoolYear]
   );
 
-  const handleModifiedOutline = useCallback(
+  const handleModifiedSchoolYear = useCallback(
     async (values) => {
       if (values?.id) {
-        await updateOutline(values?.id, values);
+        await updateSchoolYear(values?.id, values);
       } else {
-        await createOutline(values);
+        await createSchoolYear(values);
       }
 
-      handleGetOutline();
+      handleGetSchoolYear();
 
       return true;
     },
-    [createOutline, handleGetOutline, updateOutline]
+    [createSchoolYear, handleGetSchoolYear, updateSchoolYear]
   );
 
   useEffect(() => {
-    handleGetOutline();
+    handleGetSchoolYear();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -119,48 +109,48 @@ const OutlinePage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên đề cương, mã đề cương"
+            placeholder="Tìm kiếm theo tên năm học, mã năm học"
             onCreate={() =>
               open({
-                title: "Thêm mới đề cương",
+                title: "Thêm mới năm học",
               })
             }
-            onSearch={(keyword) => handleGetOutline(keyword)}
+            onSearch={(keyword) => handleGetSchoolYear(keyword)}
           />
         </Box>
         <Table
-          loading={isOutlineLoading}
+          loading={isSchoolYearLoading}
           columnData={columnData}
-          tableData={outlines?.results}
-          totalPage={outlines?.total}
+          tableData={schoolYears?.results}
+          totalPage={schoolYears?.total}
           page={page}
           setPage={setPage}
           onEdit={(data) =>
             open({
-              title: "Chỉnh sửa đề cương",
+              title: "Chỉnh sửa năm học",
               data,
             })
           }
           onRemove={(id) =>
             openRemove({
-              title: "Xác nhận xoá đề cương",
+              title: "Xác nhận xoá năm học",
               data: id,
             })
           }
         />
       </Stack>
       <Dialog
-        onSave={handleModifiedOutline}
+        onSave={handleModifiedSchoolYear}
         formLayoutData={formLayoutData}
-        formValidationSchema={modifiedOutlineValidation}
-        isLoading={isModifiedOutlineLoading}
+        formValidationSchema={modifiedSchoolYearValidation}
+        isLoading={isModifiedSchoolYearLoading}
       />
       <DialogRemove
-        description="Bạn có chắc chắn muốn xoá đề cương này không?"
-        isLoading={isModifiedOutlineLoading}
+        description="Bạn có chắc chắn muốn xoá năm học này không?"
+        isLoading={isModifiedSchoolYearLoading}
       />
     </>
   );
 };
 
-export default OutlinePage;
+export default SchoolYearPage;

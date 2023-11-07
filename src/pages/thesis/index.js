@@ -9,6 +9,7 @@ import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import DetailModal from "components/common/DetailModal";
 import useThesis from "hooks/useThesis";
+import ReasonModal from "components/common/ReasonModal";
 
 const ThesisPage = () => {
   const { page, setPage } = usePagination();
@@ -18,10 +19,20 @@ const ThesisPage = () => {
     refreshThesis,
     approveThesis,
     deleteThesis,
+    isModifiedThesisLoading,
   } = useThesis();
   const { open, Dialog } = useModal({
     modalBody: DetailModal,
     usingFooter: false,
+  });
+  const { open: openReason, Dialog: DialogReason } = useModal({
+    modalBody: ReasonModal,
+    handleSave: async (data) => {
+      await handleUnApproveThesis(data);
+      handleGetThesis();
+
+      return true;
+    },
   });
 
   const columnData = [
@@ -151,10 +162,16 @@ const ThesisPage = () => {
       <Dialog
         detailList={detailList}
         onSave={handelApproveThesis}
-        onClose={handleUnApproveThesis}
+        onClose={(data) =>
+          openReason({
+            title: "Lý do",
+            data,
+          })
+        }
         closeBtnText="Không phê duyệt"
         saveBtnText="Phê duyệt"
       />
+      <DialogReason isLoading={isModifiedThesisLoading} />
     </>
   );
 };

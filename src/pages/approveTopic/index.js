@@ -8,14 +8,27 @@ import useTopic from "hooks/useTopic";
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
 import DetailModal from "components/common/DetailModal";
+import ReasonModal from "components/common/ReasonModal";
 
 const ApproveTopicPage = () => {
   const { page, setPage } = usePagination();
-  const { topics, isTopicLoading, refreshTopic, approveTopic, unApproveTopic } =
-    useTopic();
+  const {
+    topics,
+    isTopicLoading,
+    refreshTopic,
+    approveTopic,
+    unApproveTopic,
+    isModifiedTopicLoading,
+  } = useTopic();
   const { open, Dialog } = useModal({
     modalBody: DetailModal,
     usingFooter: false,
+  });
+  const { open: openReason, Dialog: DialogReason } = useModal({
+    modalBody: ReasonModal,
+    handleSave: (data) => {
+      handleUnApproveTopic(data);
+    },
   });
 
   const columnData = [
@@ -136,10 +149,16 @@ const ApproveTopicPage = () => {
       <Dialog
         detailList={detailList}
         onSave={handelApproveTopic}
-        onClose={handleUnApproveTopic}
+        onClose={(data) =>
+          openReason({
+            title: "Lý do",
+            data,
+          })
+        }
         closeBtnText="Không phê duyệt"
         saveBtnText="Phê duyệt"
       />
+      <DialogReason isLoading={isModifiedTopicLoading} />
     </>
   );
 };

@@ -119,7 +119,7 @@ const DocumentPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên tài liệu, mã tài liệu"
+            placeholder="Tìm kiếm theo tên tài liệu, mã tài liệu"
             onCreate={() =>
               open({
                 title: "Thêm mới tài liệu",

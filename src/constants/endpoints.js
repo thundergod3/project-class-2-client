@@ -71,6 +71,18 @@ const Endpoints = {
 
   // UTILS
   uploadFile: "/upload",
+
+  // SCHOOL YEARS
+  getSchoolYearList: "/schoolYears",
+  createSchoolYear: "/schoolYears/create",
+  updateSchoolYear: "/schoolYears/update/:id",
+  deleteSchoolYear: "/schoolYears/delete/:id",
+
+  // SEMESTERS
+  getSemesterList: "/semesters",
+  createSemester: "/semesters/create",
+  updateSemester: "/semesters/update/:id",
+  deleteSemester: "/semesters/delete/:id",
 };
 
 export default Endpoints;

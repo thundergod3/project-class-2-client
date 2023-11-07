@@ -164,7 +164,7 @@ const StudentPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên sinh viên, mã sinh viên"
+            placeholder="Tìm kiếm theo tên sinh viên, mã sinh viên"
             onCreate={() =>
               open({
                 title: "Thêm mới sinh viên",

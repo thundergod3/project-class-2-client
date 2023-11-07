@@ -164,7 +164,7 @@ const TeacherPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên giáo viên, mã giáo viên"
+            placeholder="Tìm kiếm theo tên giáo viên, mã giáo viên"
             onCreate={() =>
               open({
                 title: "Thêm mới Giáo viên",

@@ -2,21 +2,21 @@ import { useCallback, useEffect, useState } from "react";
 
 import useNotification from "./useNotification";
 import QueryString from "utils/queryString";
-import documentsService from "services/DocumentsService";
+import semestersService from "services/SemestersService";
 
-const useDocument = ({ initialGet } = {}) => {
+const useSemester = ({ initialGet } = {}) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [isModifiedLoading, setIsModifiedLoading] = useState(false);
 
   const { openNotificationSuccess, openNotificationError } = useNotification();
 
-  const handleGetDocument = useCallback(
+  const handleGetSemester = useCallback(
     async (filter = { page: 0 }) => {
       try {
         setLoading(true);
 
-        const { data } = await documentsService.getDocumentList(
+        const { data } = await semestersService.getSemesterList(
           QueryString.stringify(filter)
         );
 
@@ -30,14 +30,14 @@ const useDocument = ({ initialGet } = {}) => {
     [openNotificationError]
   );
 
-  const createDocument = useCallback(
+  const createSemester = useCallback(
     async (body) => {
       setIsModifiedLoading(true);
 
       try {
-        await documentsService.createDocument(body);
+        await semestersService.createSemester(body);
 
-        openNotificationSuccess("Thêm mới Tài liệu thành công");
+        openNotificationSuccess("Thêm mới Kì học thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -47,16 +47,16 @@ const useDocument = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
-  const updateDocument = useCallback(
+  const updateSemester = useCallback(
     async (id, body) => {
       setIsModifiedLoading(true);
 
       try {
         delete body.id;
 
-        await documentsService.updateDocument(id, body);
+        await semestersService.updateSemester(id, body);
 
-        openNotificationSuccess("Chỉnh sửa Tài liệu thành công");
+        openNotificationSuccess("Chỉnh sửa Kì học thành công");
         setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.message || "Something error");
@@ -66,14 +66,14 @@ const useDocument = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
-  const deleteDocument = useCallback(
+  const deleteSemester = useCallback(
     async (id) => {
       setIsModifiedLoading(true);
 
       try {
-        await documentsService.deleteDocument(id);
+        await semestersService.deleteSemester(id);
 
-        openNotificationSuccess("Xoá Tài liệu thành công");
+        openNotificationSuccess("Xoá Kì học thành công");
       } catch (error) {
         openNotificationError(error?.message || "Something error");
       }
@@ -83,7 +83,7 @@ const useDocument = ({ initialGet } = {}) => {
 
   useEffect(() => {
     if (initialGet) {
-      handleGetDocument({
+      handleGetSemester({
         limit: 1000000,
       });
     }
@@ -91,14 +91,14 @@ const useDocument = ({ initialGet } = {}) => {
   }, [initialGet]);
 
   return {
-    documents: data,
-    isDocumentLoading: loading,
-    isModifiedDocumentLoading: isModifiedLoading,
-    refreshDocument: handleGetDocument,
-    createDocument,
-    updateDocument,
-    deleteDocument,
+    semesters: data,
+    isSemesterYearLoading: loading,
+    isModifiedSemesterLoading: isModifiedLoading,
+    refreshSemester: handleGetSemester,
+    createSemester,
+    updateSemester,
+    deleteSemester,
   };
 };
 
-export default useDocument;
+export default useSemester;

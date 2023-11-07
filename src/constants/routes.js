@@ -20,4 +20,6 @@ export const Routes = {
   reportTheses: "/report-theses",
   reportCompleteTheses: "/report-complete-theses",
   reportNumberStudentOfTeacher: "/report-number-student-of-teacher",
+  schoolYears: "/school-years",
+  semesters: "/semesters",
 };

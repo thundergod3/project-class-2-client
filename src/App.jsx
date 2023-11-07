@@ -39,9 +39,9 @@ const ReportThesisPage = lazy(() => import("./pages/reportThesis"));
 const ReportCompleteThesisPage = lazy(() =>
   import("./pages/reportCompleteThesis")
 );
-const ReportNumberStudentOfTeacherPage = lazy(() =>
-  import("./pages/reportNumberStudentOfTeacher")
-);
+const ReportNumberStudentOfTeacherPage = lazy(() => import("./pages/semester"));
+const SchoolYearPage = lazy(() => import("./pages/schoolYear"));
+const SemesterPage = lazy(() => import("./pages/semester"));
 
 const App = () => {
   const { getUserData } = useAuthenticated();
@@ -205,6 +205,20 @@ const App = () => {
           component={ReportNumberStudentOfTeacherPage}
           layout={MainLayout}
           title="Báo cáo số lượng sinh viên hướng dẫn của từng giảng viên"
+        />
+        <PrivateRoute
+          exact
+          path={Routes.schoolYears}
+          component={SchoolYearPage}
+          layout={MainLayout}
+          title="Quản lý Năm học"
+        />
+        <PrivateRoute
+          exact
+          path={Routes.semesters}
+          component={SemesterPage}
+          layout={MainLayout}
+          title="Quản lý Kỳ học"
         />
       </Switch>
     </React.Suspense>

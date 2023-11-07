@@ -164,7 +164,7 @@ const ModulePage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên học phần, mã học phần"
+            placeholder="Tìm kiếm theo tên học phần, mã học phần"
             onCreate={() =>
               open({
                 title: "Thêm mới học phần KLTN",

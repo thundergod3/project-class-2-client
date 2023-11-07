@@ -125,7 +125,7 @@ const ReportThesisPage = () => {
       <Stack spacing="24px" paddingTop="16px">
         <Box padding="0px 24px">
           <TableFilter
-            placeholder="Tìm kiếm theo tên tên đề tài, mã đề tài"
+            placeholder="Tìm kiếm theo tên đề tài, mã đề tài"
             onCreate={() =>
               open({
                 title: "Thêm mới biên bản",

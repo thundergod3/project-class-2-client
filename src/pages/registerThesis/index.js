@@ -4,11 +4,13 @@ import React, { useEffect, useMemo } from "react";
 
 import useAuthenticated from "hooks/useAuthenticated";
 import { modifiedThesisValidation } from "./constants";
+import useSchoolYear from "hooks/useSchoolYear";
 
 import InputField from "components/common/InputField";
 import DatePicker from "components/common/DatePicker";
 import useThesis from "hooks/useThesis";
 import FileUpload from "components/common/FileUpload";
+import SelectField from "components/common/SelectField";
 
 const RegisterThesisPage = () => {
   const { userData, getUserData } = useAuthenticated();
@@ -18,6 +20,9 @@ const RegisterThesisPage = () => {
     createThesis,
     updateThesis,
   } = useThesis();
+  const { schoolYears } = useSchoolYear({
+    initialGet: true,
+  });
 
   const userThesisId = useMemo(() => userData?.thesisId, [userData?.thesisId]);
   const initialValues = useMemo(
@@ -26,6 +31,14 @@ const RegisterThesisPage = () => {
       dob: userData?.dob || new Date(),
     }),
     [userData?.dob, userData?.fullName, userThesisId]
+  );
+  const schoolYearOptionList = useMemo(
+    () =>
+      schoolYears?.results?.map((record) => ({
+        value: record?.id,
+        label: record?.name,
+      })),
+    [schoolYears?.results]
   );
 
   const {
@@ -111,6 +124,28 @@ const RegisterThesisPage = () => {
             w="full"
             minWidthLabel="100px"
             readOnly
+          />
+          <SelectField
+            label="Năm học"
+            name="schoolYearId"
+            value={schoolYearOptionList?.find(
+              (record) => record?.value === values?.schoolYearId
+            )}
+            touched={touched?.schoolYearId}
+            error={errors?.schoolYearId}
+            onChange={(value) =>
+              setValues({
+                ...values,
+                schoolYearId: value?.value,
+              })
+            }
+            onBlur={handleBlur}
+            optionList={schoolYearOptionList}
+            isRequired
+            w="full"
+            minWidthLabel="100px"
+            direction="row"
+            placeholder="Chọn năm học"
           />
           <FileUpload
             name="file"
