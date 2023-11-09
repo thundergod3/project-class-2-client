@@ -28,13 +28,13 @@ const useAuthenticated = () => {
         } else {
           saveToLocal(LOCAL_KEYS.token, data?.token);
           delete data.token;
-          dispatch(setUserData(data));
+          dispatch(setUserData(data?.user));
           history.push(Routes.home);
         }
       } catch (error) {
         console.log("error", error);
 
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
       }
     },
     [dispatch, openNotificationError, saveToLocal]

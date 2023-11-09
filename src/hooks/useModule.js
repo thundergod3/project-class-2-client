@@ -23,7 +23,7 @@ const useModule = ({ initialGet } = {}) => {
         setData(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -40,7 +40,7 @@ const useModule = ({ initialGet } = {}) => {
         openNotificationSuccess("Thêm mới Học phần KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -59,7 +59,7 @@ const useModule = ({ initialGet } = {}) => {
         openNotificationSuccess("Chỉnh sửa Học phần KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -76,7 +76,7 @@ const useModule = ({ initialGet } = {}) => {
         openNotificationSuccess("Xoá Học phần KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },

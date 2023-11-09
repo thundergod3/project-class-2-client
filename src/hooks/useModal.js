@@ -53,7 +53,7 @@ const useModal = ({
   const onSave = useCallback(async () => {
     const result = await handleSave?.(modalState?.data);
 
-    if (result) {
+    if (result || result === undefined) {
       close();
     }
   }, [close, handleSave, modalState?.data]);

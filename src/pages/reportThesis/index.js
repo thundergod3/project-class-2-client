@@ -31,9 +31,8 @@ const ReportThesisPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteReportThesis(id);
+      setPage(0);
       handleGetReportThesis();
-
-      return true;
     },
   });
 
@@ -45,12 +44,12 @@ const ReportThesisPage = () => {
     },
     {
       columnId: "name",
-      label: "Tên đề tài",
+      label: "Tên biên bản",
       render: (value, data) => <FileName name={value} link={data?.file} />,
     },
     {
       columnId: "user",
-      label: "Mã đề tài",
+      label: "Mã sinh viên",
       render: (data) => data?.code,
     },
     {

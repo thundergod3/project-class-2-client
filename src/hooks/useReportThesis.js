@@ -23,7 +23,7 @@ const useReportThesis = ({ initialGet } = {}) => {
         setData(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -40,7 +40,7 @@ const useReportThesis = ({ initialGet } = {}) => {
         openNotificationSuccess("Thêm mới biên bản KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -59,7 +59,7 @@ const useReportThesis = ({ initialGet } = {}) => {
         openNotificationSuccess("Chỉnh sửa biên bản KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -76,7 +76,7 @@ const useReportThesis = ({ initialGet } = {}) => {
         openNotificationSuccess("Xoá biên bản KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },

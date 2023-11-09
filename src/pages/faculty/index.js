@@ -30,6 +30,7 @@ const FacultyPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteFaculty(id);
+      setPage(0);
       handleGetFaculty();
     },
   });

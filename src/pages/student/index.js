@@ -38,9 +38,8 @@ const StudentPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteTeacher(id);
+      setPage(0);
       handleGetStudent();
-
-      return true;
     },
   });
 

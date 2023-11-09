@@ -23,6 +23,7 @@ const PagePagination = ({
   return (
     <PagePaginationContainer positionContent={positionContent}>
       <ReactPaginate
+        forcePage={page}
         previousLabel={
           <Icon
             as={IoIosArrowBack}

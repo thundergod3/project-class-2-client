@@ -34,9 +34,8 @@ const SemesterPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteSemester(id);
+      setPage(0);
       handleGetSemester();
-
-      return true;
     },
   });
 

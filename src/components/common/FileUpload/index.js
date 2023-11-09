@@ -51,6 +51,7 @@ const FileUpload = ({
 
   const { file, onClickFile, FileInput } = useUploadFile({
     handleChooseFile,
+    acceptFile: ".txt,.pdf",
   });
 
   return (

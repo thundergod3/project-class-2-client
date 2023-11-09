@@ -34,9 +34,8 @@ const MajorPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteMajor(id);
+      setPage(0);
       handleGetMajor();
-
-      return true;
     },
   });
 

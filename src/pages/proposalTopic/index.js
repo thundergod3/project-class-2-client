@@ -7,6 +7,7 @@ import { modifiedTopicValidation } from "./constants";
 import useMajor from "hooks/useMajor";
 import useTopic from "hooks/useTopic";
 import useAuthenticated from "hooks/useAuthenticated";
+import useSchoolYear from "hooks/useSchoolYear";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
@@ -17,6 +18,9 @@ const ProposalTopicPage = () => {
   const { userData, isStudent } = useAuthenticated();
   const { page, setPage } = usePagination();
   const { majors } = useMajor({
+    initialGet: true,
+  });
+  const { schoolYears } = useSchoolYear({
     initialGet: true,
   });
   const {
@@ -50,6 +54,14 @@ const ProposalTopicPage = () => {
       })),
     [majors?.results]
   );
+  const schoolYearOptionList = useMemo(
+    () =>
+      schoolYears?.results?.map((record) => ({
+        value: record?.id,
+        label: record?.name,
+      })),
+    [schoolYears?.results]
+  );
 
   const columnData = useMemo(
     () => [
@@ -66,6 +78,11 @@ const ProposalTopicPage = () => {
         columnId: "major",
         label: "Mã ngành",
         render: (data) => data?.code,
+      },
+      {
+        columnId: "schoolYear",
+        label: "Khoá",
+        render: (data) => data?.name,
       },
       {
         hide: !isStudent,
@@ -100,6 +117,16 @@ const ProposalTopicPage = () => {
         label: "Ngành",
         minWidthLabel: "150px",
         placeholder: "Chọn ngành",
+      },
+    },
+    {
+      type: "dropdown",
+      name: "schoolYearId",
+      options: schoolYearOptionList,
+      properties: {
+        label: "Khoá",
+        placeholder: "Chọn khoá",
+        minWidthLabel: "150px",
       },
     },
     {

@@ -47,6 +47,7 @@ const RegisterThesisPage = () => {
     handleChange,
     handleBlur,
     touched,
+    setFieldValue,
     errors,
     setValues,
   } = useFormik({
@@ -79,6 +80,15 @@ const RegisterThesisPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userThesisId]);
 
+  useEffect(() => {
+    if (userData) {
+      setFieldValue("userCode", userData?.code);
+      setFieldValue("userFacultyCode", userData?.faculty?.code);
+      setFieldValue("fullName", userData?.fullName);
+      setFieldValue("schoolYearId", userData?.schoolYearId);
+    }
+  }, [setFieldValue, userData]);
+
   return (
     <Stack spacing="24px" padding={8} maxWidth="620px">
       <form onSubmit={handleSubmit}>
@@ -100,7 +110,8 @@ const RegisterThesisPage = () => {
           />
           <InputField
             label="Mã sinh viên"
-            value={userData?.code}
+            name="userCode"
+            value={values?.userCode}
             isRequired
             w="full"
             minWidthLabel="100px"
@@ -119,7 +130,8 @@ const RegisterThesisPage = () => {
           />
           <InputField
             label="Mã ngành học"
-            value={userData?.faculty?.code}
+            name="userFacultyCode"
+            value={values.userFacultyCode}
             isRequired
             w="full"
             minWidthLabel="100px"
@@ -133,12 +145,7 @@ const RegisterThesisPage = () => {
             )}
             touched={touched?.schoolYearId}
             error={errors?.schoolYearId}
-            onChange={(value) =>
-              setValues({
-                ...values,
-                schoolYearId: value?.value,
-              })
-            }
+            onChange={(value) => setFieldValue("schoolYearId", value?.value)}
             onBlur={handleBlur}
             optionList={schoolYearOptionList}
             isRequired

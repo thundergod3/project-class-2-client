@@ -23,7 +23,7 @@ const useSemester = ({ initialGet } = {}) => {
         setData(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -40,7 +40,7 @@ const useSemester = ({ initialGet } = {}) => {
         openNotificationSuccess("Thêm mới Kì học thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -59,7 +59,7 @@ const useSemester = ({ initialGet } = {}) => {
         openNotificationSuccess("Chỉnh sửa Kì học thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -75,7 +75,7 @@ const useSemester = ({ initialGet } = {}) => {
 
         openNotificationSuccess("Xoá Kì học thành công");
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
       }
     },
     [openNotificationError, openNotificationSuccess]

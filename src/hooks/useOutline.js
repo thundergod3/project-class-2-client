@@ -23,7 +23,7 @@ const useOutline = ({ initialGet } = {}) => {
         setData(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -37,10 +37,10 @@ const useOutline = ({ initialGet } = {}) => {
       try {
         await outlinesService.createOutline(body);
 
-        openNotificationSuccess("Thêm mới Sinh viên thành công");
+        openNotificationSuccess("Thêm mới đề cương thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -56,10 +56,10 @@ const useOutline = ({ initialGet } = {}) => {
 
         await outlinesService.updateOutline(id, body);
 
-        openNotificationSuccess("Chỉnh sửa Sinh viên thành công");
+        openNotificationSuccess("Chỉnh sửa đề cương thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -73,10 +73,10 @@ const useOutline = ({ initialGet } = {}) => {
       try {
         await outlinesService.deleteOutline(id);
 
-        openNotificationSuccess("Xoá Sinh viên thành công");
+        openNotificationSuccess("Xoá đề cương thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },

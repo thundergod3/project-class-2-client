@@ -26,7 +26,7 @@ const useStudent = ({ initialGet } = {}) => {
         setData(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -47,7 +47,7 @@ const useStudent = ({ initialGet } = {}) => {
         openNotificationSuccess("Thêm mới Sinh viên thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -66,7 +66,7 @@ const useStudent = ({ initialGet } = {}) => {
         openNotificationSuccess("Chỉnh sửa Sinh viên thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -83,7 +83,7 @@ const useStudent = ({ initialGet } = {}) => {
         openNotificationSuccess("Xoá Sinh viên thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },

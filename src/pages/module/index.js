@@ -38,9 +38,8 @@ const ModulePage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteModule(id);
+      setPage(0);
       handleGetModule();
-
-      return true;
     },
   });
 

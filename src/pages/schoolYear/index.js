@@ -30,9 +30,8 @@ const SchoolYearPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteSchoolYear(id);
+      setPage(0);
       handleGetSchoolYear();
-
-      return true;
     },
   });
 

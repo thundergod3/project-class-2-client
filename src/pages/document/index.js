@@ -31,9 +31,8 @@ const DocumentPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteDocument(id);
+      setPage(0);
       handleGetDocument();
-
-      return true;
     },
   });
 

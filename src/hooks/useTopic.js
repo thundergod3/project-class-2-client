@@ -23,7 +23,7 @@ const useTopic = ({ initialGet } = {}) => {
         setData(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -40,7 +40,7 @@ const useTopic = ({ initialGet } = {}) => {
         openNotificationSuccess("Thêm mới Đề tài hướng dẫn KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -59,7 +59,7 @@ const useTopic = ({ initialGet } = {}) => {
         openNotificationSuccess("Chỉnh sửa Đề tài hướng dẫn KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -75,7 +75,7 @@ const useTopic = ({ initialGet } = {}) => {
 
         openNotificationSuccess("Xoá Đề tài hướng dẫn KLTN thành công");
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
       }
     },
     [openNotificationError, openNotificationSuccess]
@@ -91,7 +91,7 @@ const useTopic = ({ initialGet } = {}) => {
         openNotificationSuccess("Đăng ký đề tài hướng dẫn KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -108,7 +108,7 @@ const useTopic = ({ initialGet } = {}) => {
         openNotificationSuccess("Huỷ đăng ký đề tài hướng dẫn KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -137,7 +137,7 @@ const useTopic = ({ initialGet } = {}) => {
 
         return true;
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -154,7 +154,7 @@ const useTopic = ({ initialGet } = {}) => {
         openNotificationSuccess("Phê duyệt Đề tài hướng dẫn KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -173,7 +173,7 @@ const useTopic = ({ initialGet } = {}) => {
         );
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },

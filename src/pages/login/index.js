@@ -1,7 +1,6 @@
-import { Stack, Link, Button } from "@chakra-ui/react";
+import { Stack, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import React from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
 
 import { loginValidation } from "./constants";
 import useAuthenticated from "hooks/useAuthenticated";
@@ -52,9 +51,6 @@ const LoginPage = () => {
           minWidthLabel="120px"
         />
         <Stack spacing={6} alignItems="center">
-          <Link as={ReactRouterLink} alignSelf="flex-end" to="/">
-            Quên mật khẩu?
-          </Link>
           <Button
             width="fit-content"
             type="submit"

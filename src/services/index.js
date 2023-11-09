@@ -14,6 +14,7 @@ const baseAxios = () => {
     const token = JSON.parse(localStorage.getItem(LOCAL_KEYS.token));
 
     config.headers.Authorization = token ? `Bearer ${token}` : "";
+
     return config;
   });
 

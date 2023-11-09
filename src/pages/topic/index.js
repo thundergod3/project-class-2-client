@@ -8,6 +8,7 @@ import useFaculty from "hooks/useFaculty";
 import useMajor from "hooks/useMajor";
 import useTopic from "hooks/useTopic";
 import useAuthenticated from "hooks/useAuthenticated";
+import useSchoolYear from "hooks/useSchoolYear";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
@@ -21,6 +22,9 @@ const TopicPage = () => {
     initialGet: true,
   });
   const { majors } = useMajor({
+    initialGet: true,
+  });
+  const { schoolYears } = useSchoolYear({
     initialGet: true,
   });
   const {
@@ -40,9 +44,8 @@ const TopicPage = () => {
     modalBody: ConfirmationModal,
     handleSave: async (id) => {
       await deleteTopic(id);
+      setPage(0);
       handleGetTopic();
-
-      return true;
     },
   });
 
@@ -61,6 +64,14 @@ const TopicPage = () => {
         label: record?.name,
       })),
     [majors?.results]
+  );
+  const schoolYearOptionList = useMemo(
+    () =>
+      schoolYears?.results?.map((record) => ({
+        value: record?.id,
+        label: record?.name,
+      })),
+    [schoolYears?.results]
   );
 
   const columnData = useMemo(
@@ -86,6 +97,11 @@ const TopicPage = () => {
       {
         columnId: "faculty",
         label: "Khoa",
+        render: (data) => data?.name,
+      },
+      {
+        columnId: "schoolYear",
+        label: "Khoá",
         render: (data) => data?.name,
       },
       {
@@ -130,6 +146,16 @@ const TopicPage = () => {
       properties: {
         label: "Ngành",
         placeholder: "Chọn ngành",
+        minWidthLabel: "150px",
+      },
+    },
+    {
+      type: "dropdown",
+      name: "schoolYearId",
+      options: schoolYearOptionList,
+      properties: {
+        label: "Khoá",
+        placeholder: "Chọn khoá",
         minWidthLabel: "150px",
       },
     },

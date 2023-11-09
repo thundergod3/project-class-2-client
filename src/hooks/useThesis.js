@@ -24,7 +24,7 @@ const useThesis = ({ initialGet } = {}) => {
         setData(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -41,7 +41,7 @@ const useThesis = ({ initialGet } = {}) => {
         setDataDetail(data);
         setLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setLoading(false);
       }
     },
@@ -58,7 +58,7 @@ const useThesis = ({ initialGet } = {}) => {
         openNotificationSuccess("Đăng ký bảo vệ KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -75,7 +75,7 @@ const useThesis = ({ initialGet } = {}) => {
         openNotificationSuccess(text || "Chỉnh sửa bảo vệ KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -91,7 +91,7 @@ const useThesis = ({ initialGet } = {}) => {
 
         openNotificationSuccess("Xoá bảo vệ KLTN thành công");
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
       }
     },
     [openNotificationError, openNotificationSuccess]
@@ -106,7 +106,7 @@ const useThesis = ({ initialGet } = {}) => {
 
         openNotificationSuccess("Phê duyệt bảo vệ KLTN thành công");
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
       }
     },
     [openNotificationError, openNotificationSuccess]
@@ -122,7 +122,7 @@ const useThesis = ({ initialGet } = {}) => {
         openNotificationSuccess("Đăng ký kết quả bảo vệ KLTN thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -139,7 +139,7 @@ const useThesis = ({ initialGet } = {}) => {
         openNotificationSuccess("Phân công giảng viên phản biện thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
@@ -156,7 +156,7 @@ const useThesis = ({ initialGet } = {}) => {
         openNotificationSuccess("Chỉnh sửa hội đồng bảo vệ thành công");
         setIsModifiedLoading(false);
       } catch (error) {
-        openNotificationError(error?.message || "Something error");
+        openNotificationError(error?.response?.data?.msg || "Something error");
         setIsModifiedLoading(false);
       }
     },
