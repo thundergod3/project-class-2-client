@@ -90,8 +90,10 @@ const useThesis = ({ initialGet } = {}) => {
         await thesesService.deleteThesis(id, body);
 
         openNotificationSuccess("Xoá bảo vệ KLTN thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.response?.data?.msg || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]

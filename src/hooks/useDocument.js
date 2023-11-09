@@ -74,8 +74,10 @@ const useDocument = ({ initialGet } = {}) => {
         await documentsService.deleteDocument(id);
 
         openNotificationSuccess("Xoá Tài liệu thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.response?.data?.msg || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]

@@ -74,8 +74,10 @@ const useSemester = ({ initialGet } = {}) => {
         await semestersService.deleteSemester(id);
 
         openNotificationSuccess("Xoá Kì học thành công");
+        setIsModifiedLoading(true);
       } catch (error) {
         openNotificationError(error?.response?.data?.msg || "Something error");
+        setIsModifiedLoading(true);
       }
     },
     [openNotificationError, openNotificationSuccess]

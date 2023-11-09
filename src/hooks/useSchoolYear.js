@@ -74,8 +74,10 @@ const useSchoolYear = ({ initialGet } = {}) => {
         await schoolYearsService.deleteSchoolYear(id);
 
         openNotificationSuccess("Xoá Năm học thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.response?.data?.msg || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]
