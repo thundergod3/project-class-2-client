@@ -80,7 +80,7 @@ const ThesisPage = () => {
     {
       value: "user",
       label: "Họ và tên",
-      customValue: (data) => data?.fullName,
+      customValue: (data) => data?.fullName || data?.name,
     },
     {
       value: "user",
