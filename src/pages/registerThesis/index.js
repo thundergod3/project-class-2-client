@@ -86,6 +86,7 @@ const RegisterThesisPage = () => {
       setFieldValue("userFacultyCode", userData?.faculty?.code);
       setFieldValue("fullName", userData?.fullName);
       setFieldValue("schoolYearId", userData?.schoolYearId);
+      setFieldValue("fullName", userData?.name);
     }
   }, [setFieldValue, userData]);
 
