@@ -24,10 +24,10 @@ const ReportCompleteThesisPage = () => {
         value: "",
         label: "Tất cả",
       },
-      ...schoolYears?.results?.map((record) => ({
+      ...(schoolYears?.results?.map((record) => ({
         value: record?.id,
         label: record?.name,
-      })),
+      })) || []),
     ],
     [schoolYears?.results]
   );
@@ -37,10 +37,10 @@ const ReportCompleteThesisPage = () => {
         value: "",
         label: "Tất cả",
       },
-      ...semesters?.results?.map((record) => ({
+      ...(semesters?.results?.map((record) => ({
         value: record?.id,
         label: record?.name,
-      })),
+      })) || []),
     ],
     [semesters?.results]
   );
