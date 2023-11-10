@@ -8,6 +8,7 @@ import useMajor from "hooks/useMajor";
 import useTopic from "hooks/useTopic";
 import useAuthenticated from "hooks/useAuthenticated";
 import useSchoolYear from "hooks/useSchoolYear";
+import useFaculty from "hooks/useFaculty";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
@@ -17,6 +18,9 @@ import ConfirmationModal from "components/common/ConfirmationModal";
 const ProposalTopicPage = () => {
   const { userData, isStudent } = useAuthenticated();
   const { page, setPage } = usePagination();
+  const { faculties } = useFaculty({
+    initialGet: true,
+  });
   const { majors } = useMajor({
     initialGet: true,
   });
@@ -46,6 +50,14 @@ const ProposalTopicPage = () => {
     },
   });
 
+  const facultyOptionList = useMemo(
+    () =>
+      faculties?.results?.map((record) => ({
+        value: record?.id,
+        label: record?.name,
+      })),
+    [faculties?.results]
+  );
   const majorOptionList = useMemo(
     () =>
       majors?.results?.map((record) => ({
@@ -73,6 +85,11 @@ const ProposalTopicPage = () => {
       {
         columnId: "name",
         label: "Tên đề tài",
+      },
+      {
+        columnId: "faculty",
+        label: "Mã khoa",
+        render: (data) => data?.code,
       },
       {
         columnId: "major",
@@ -107,6 +124,16 @@ const ProposalTopicPage = () => {
       properties: {
         label: "Tên đề tài",
         minWidthLabel: "150px",
+      },
+    },
+    {
+      type: "dropdown",
+      name: "facultyId",
+      options: facultyOptionList,
+      properties: {
+        label: "Khoa",
+        minWidthLabel: "150px",
+        placeholder: "Chọn khoa",
       },
     },
     {

@@ -74,8 +74,10 @@ const useTopic = ({ initialGet } = {}) => {
         await topicsService.deleteTopic(id);
 
         openNotificationSuccess("Xoá Đề tài hướng dẫn KLTN thành công");
+        setIsModifiedLoading(false);
       } catch (error) {
         openNotificationError(error?.response?.data?.msg || "Something error");
+        setIsModifiedLoading(false);
       }
     },
     [openNotificationError, openNotificationSuccess]
@@ -180,6 +182,23 @@ const useTopic = ({ initialGet } = {}) => {
     [openNotificationError, openNotificationSuccess]
   );
 
+  const approveProposalTopic = useCallback(
+    async (id, body) => {
+      setIsModifiedLoading(true);
+
+      try {
+        await topicsService.approveProposalTopic(id, body);
+
+        openNotificationSuccess("Phê duyệt Đề tài hướng dẫn KLTN thành công");
+        setIsModifiedLoading(false);
+      } catch (error) {
+        openNotificationError(error?.response?.data?.msg || "Something error");
+        setIsModifiedLoading(false);
+      }
+    },
+    [openNotificationError, openNotificationSuccess]
+  );
+
   useEffect(() => {
     if (initialGet) {
       handleGetTopic({
@@ -202,6 +221,7 @@ const useTopic = ({ initialGet } = {}) => {
     proposalTopic,
     approveTopic,
     unApproveTopic,
+    approveProposalTopic,
   };
 };
 

@@ -19,6 +19,8 @@ class TopicsService {
     HTTPMethod.put(Endpoints.unRegisterTopic.replaceAll(":id", id), data);
   approveTopic = (id) =>
     HTTPMethod.put(Endpoints.approveTopic.replaceAll(":id", id));
+  approveProposalTopic = (id, data) =>
+    HTTPMethod.put(Endpoints.approveProposalTopic.replaceAll(":id", id), data);
 
   // [DELETE]
   deleteTopic = (id) =>

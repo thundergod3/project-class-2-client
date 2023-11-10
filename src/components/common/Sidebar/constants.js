@@ -63,23 +63,6 @@ export const navLinksAdmin = [
     ],
   },
   {
-    title: "Quản trị",
-    items: [
-      {
-        route: "",
-        title: "Quản lý Người dùng",
-      },
-      {
-        route: "",
-        title: "Quản lý Nhóm người dùng",
-      },
-      {
-        route: "",
-        title: "Quản lý Nhóm quyền",
-      },
-    ],
-  },
-  {
     title: "Báo cáo thống kê",
     items: [
       {
@@ -101,10 +84,6 @@ export const navLinksTeacher = [
       {
         route: Routes.topics,
         title: "Quản lý đề tài hướng dẫn KLTN",
-      },
-      {
-        route: Routes.proposalTopics,
-        title: "Đề xuất đề tài",
       },
       {
         route: Routes.approveTopics,

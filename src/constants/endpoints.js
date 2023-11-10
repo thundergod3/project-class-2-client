@@ -38,6 +38,7 @@ const Endpoints = {
   unRegisterTopic: "/topics/un-register/:id",
   proposalTopic: "/topics/proposal",
   approveTopic: "/topics/approve/:id",
+  approveProposalTopic: "/topics/approve-proposal/:id",
 
   // OUTLINE
   getOutlineList: "/outlines",

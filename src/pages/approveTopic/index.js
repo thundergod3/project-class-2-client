@@ -16,9 +16,9 @@ const ApproveTopicPage = () => {
     topics,
     isTopicLoading,
     refreshTopic,
-    approveTopic,
     unApproveTopic,
     isModifiedTopicLoading,
+    approveProposalTopic,
   } = useTopic();
   const { open, Dialog } = useModal({
     modalBody: DetailModal,
@@ -40,6 +40,11 @@ const ApproveTopicPage = () => {
     {
       columnId: "name",
       label: "Tên đề tài",
+    },
+    {
+      columnId: "faculty",
+      label: "Mã khoa",
+      render: (data) => data?.code,
     },
     {
       columnId: "major",
@@ -81,6 +86,11 @@ const ApproveTopicPage = () => {
       customValue: (data) => data?.name,
     },
     {
+      value: "schoolYear",
+      label: "Khoá",
+      customValue: (data) => data?.name,
+    },
+    {
       isBorder: true,
       value: "reason",
       label: "Lý do",
@@ -100,15 +110,13 @@ const ApproveTopicPage = () => {
 
   const handelApproveTopic = useCallback(
     async (values) => {
-      await approveTopic(values?.id, {
-        userId: values?.userId,
-      });
+      await approveProposalTopic(values?.id, values);
 
       handleGetProposalTopic();
 
       return true;
     },
-    [approveTopic, handleGetProposalTopic]
+    [approveProposalTopic, handleGetProposalTopic]
   );
 
   const handleUnApproveTopic = useCallback(
