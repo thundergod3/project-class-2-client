@@ -5,6 +5,8 @@ class ThesesService {
   // [GET]
   getThesisList = (filter) =>
     HTTPMethod.get(`${Endpoints.getThesisList}${filter}`);
+  getReportFinishThesisList = (filter) =>
+    HTTPMethod.get(`${Endpoints.getReportFinishThesisList}${filter}`);
   getThesisDetail = (id) =>
     HTTPMethod.get(Endpoints.getThesisDetail.replaceAll(":id", id));
 

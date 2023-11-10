@@ -7,6 +7,8 @@ import { modifiedStudentValidation } from "./constants";
 import useFaculty from "hooks/useFaculty";
 import useMajor from "hooks/useMajor";
 import useStudent from "hooks/useStudent";
+import useSchoolYear from "hooks/useSchoolYear";
+import useSemester from "hooks/useSemester";
 
 import TableFilter from "components/common/TableFilter";
 import Table from "components/common/Table";
@@ -19,6 +21,12 @@ const StudentPage = () => {
     initialGet: true,
   });
   const { majors } = useMajor({
+    initialGet: true,
+  });
+  const { schoolYears } = useSchoolYear({
+    initialGet: true,
+  });
+  const { semesters } = useSemester({
     initialGet: true,
   });
   const {
@@ -59,6 +67,22 @@ const StudentPage = () => {
       })),
     [majors?.results]
   );
+  const schoolYearOptionList = useMemo(
+    () =>
+      schoolYears?.results?.map((record) => ({
+        value: record?.id,
+        label: record?.name,
+      })),
+    [schoolYears?.results]
+  );
+  const semesterOptionList = useMemo(
+    () =>
+      semesters?.results?.map((record) => ({
+        value: record?.id,
+        label: record?.name,
+      })),
+    [semesters?.results]
+  );
 
   const columnData = [
     {
@@ -82,6 +106,16 @@ const StudentPage = () => {
     {
       columnId: "faculty",
       label: "Khoa",
+      render: (data) => data?.name,
+    },
+    {
+      columnId: "schoolYear",
+      label: "Năm học",
+      render: (data) => data?.name,
+    },
+    {
+      columnId: "semester",
+      label: "Kỳ học",
       render: (data) => data?.name,
     },
     {
@@ -124,6 +158,26 @@ const StudentPage = () => {
         label: "Ngành",
         minWidthLabel: "150px",
         placeholder: "Chọn ngành",
+      },
+    },
+    {
+      type: "dropdown",
+      name: "schoolYearId",
+      options: schoolYearOptionList,
+      properties: {
+        label: "Năm học",
+        minWidthLabel: "150px",
+        placeholder: "Chọn năm học",
+      },
+    },
+    {
+      type: "dropdown",
+      name: "semesterId",
+      options: semesterOptionList,
+      properties: {
+        label: "Kỳ học",
+        minWidthLabel: "150px",
+        placeholder: "Chọn kỳ học",
       },
     },
   ];

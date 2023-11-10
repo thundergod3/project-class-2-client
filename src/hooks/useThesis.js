@@ -31,6 +31,25 @@ const useThesis = ({ initialGet } = {}) => {
     [openNotificationError]
   );
 
+  const handleGetReportFinishThesisList = useCallback(
+    async (filter = {}) => {
+      try {
+        setLoading(true);
+
+        const { data } = await thesesService.getReportFinishThesisList(
+          QueryString.stringify(filter)
+        );
+
+        setData(data);
+        setLoading(false);
+      } catch (error) {
+        openNotificationError(error?.response?.data?.msg || "Something error");
+        setLoading(false);
+      }
+    },
+    [openNotificationError]
+  );
+
   const handleGetThesisDetail = useCallback(
     async (id) => {
       try {
@@ -181,6 +200,7 @@ const useThesis = ({ initialGet } = {}) => {
     isModifiedThesisLoading: isModifiedLoading,
     refreshThesis: handleGetThesisList,
     getThesisDetail: handleGetThesisDetail,
+    refreshThesisReportFinishThesis: handleGetReportFinishThesisList,
     createThesis,
     updateThesis,
     approveThesis,

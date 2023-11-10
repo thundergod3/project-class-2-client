@@ -63,6 +63,7 @@ const Endpoints = {
   createFinishThesis: "/theses/create-finish",
   assignReviewTeacher: "/theses/assign-teacher/:id",
   updateCouncil: "/theses/council/:id",
+  getReportFinishThesisList: "/theses/total",
 
   // REPORT THESIS
   getReportThesisList: "/report-theses",

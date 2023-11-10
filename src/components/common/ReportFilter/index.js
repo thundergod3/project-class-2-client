@@ -1,16 +1,10 @@
-import { Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
+import { Button, Flex, Stack, Text } from "@chakra-ui/react";
 import React, { Fragment, useCallback, useMemo } from "react";
 
 import SelectField from "../SelectField";
 import { useFormik } from "formik";
-import { AiFillFileExcel } from "react-icons/ai";
 
-const ReportFilter = ({
-  formLayoutData,
-  isLoading,
-  onSearch,
-  onExportExcel,
-}) => {
+const ReportFilter = ({ formLayoutData, isLoading, onSearch }) => {
   const initialValues = useMemo(() => {
     const objects = {};
 
@@ -86,10 +80,6 @@ const ReportFilter = ({
     [errors, handleBlur, setValues, touched, values]
   );
 
-  const handleExportExcel = useCallback(() => {
-    onExportExcel?.();
-  }, [onExportExcel]);
-
   return (
     <form onSubmit={handleSubmit}>
       <Stack gap="4px">
@@ -110,13 +100,6 @@ const ReportFilter = ({
                 background: "background.secondary",
               }}>
               Tìm kiếm
-            </Button>
-            <Button
-              variant="outline"
-              mr={3}
-              onClick={handleExportExcel}
-              leftIcon={<Icon as={AiFillFileExcel} />}>
-              Xuất Excel
             </Button>
           </Flex>
         </Flex>
